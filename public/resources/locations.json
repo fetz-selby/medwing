@@ -1,0 +1,7 @@
+[
+    {"id":1, "avatar": "/assets/avatars/james.svg", "name": "James Red", "department": "Sales", "email":"jamesred@gmail.com", "mobile": "0305683294136", "active": true},
+    {"id":2, "avatar": "/assets/avatars/christine.svg", "name": "Christine Smith", "department": "Sales", "email":"christinesmith@gmail.com", "mobile": "0335466565365", "active": true},
+    {"id":3, "avatar": "/assets/avatars/antonio.svg", "name": "Antonio Forte", "department": "Sales", "email":"antonioforte@gmail.com", "mobile": "0357687876746", "active": true},
+    {"id":4, "avatar": "/assets/avatars/olivia.svg", "name": "Olivia Bernard", "department": "Sales", "email":"gimmy@gmail.com", "mobile": "0301828475964", "active": true},
+    {"id":5, "avatar": "/assets/avatars/max.svg", "name": "Max Black", "department": "Manager", "email":"gimmy@gmail.com", "mobile": "0301649089600", "active": false}
+]

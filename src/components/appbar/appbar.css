@@ -1,0 +1,82 @@
+/* General styles */
+.clearfix{clear: both; height: 0;}
+.hide{display:none;}
+
+/* Style for Top Bar */
+.app-bar{
+    width: 100%;
+    height: 5.2em;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E7E3E3;
+    padding: 1.3em 0.89em;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.app-bar .switch-module{
+    float: left;
+}
+
+.app-bar .switch-module .toggle-img{
+    float: left;
+    opacity: 0.54;
+    padding: 0.64em 0.64em 0 0;
+}
+
+.app-bar .switch-module .module-title{
+    float: left;
+    font-family: Helvetica;
+    font-size: 1.41em;
+    color: #4D5664;
+    padding-top: 0.32em;
+}
+
+.app-bar .avatar-username{
+    float: right;
+}
+
+.app-bar .avatar-username .avatar-img{
+    float: left;
+}
+
+.app-bar .avatar-username .username-title{
+    float: left;
+    font-family: Helvetica;
+    font-size: 0.9em;
+    color: #A9679A;
+    letter-spacing: 0.02em;
+    text-align: left;
+    padding: 0.77em 0 0 0.64em;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .app-bar{
+        width: 100%;
+        height: 5.2em;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E7E3E3;
+        padding: 1.3em 0.89em;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .app-bar .switch-module .toggle-img{
+       display: none;
+    }
+}
+
+/* xtra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .app-bar{
+        width: 100%;
+        height: 5.2em;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E7E3E3;
+        padding: 1.3em 0.89em;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .app-bar .switch-module .toggle-img{
+        display: none;
+    }
+}

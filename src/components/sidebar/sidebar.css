@@ -1,0 +1,107 @@
+/* General styles */
+.clearfix{clear: both; height: 0;}
+.hide{display:none;}
+.show{display: block !important;}
+
+/* Styles for Sidebar */
+.sidebar{
+    display:none;
+    position: absolute;
+    width: 57%;
+    height: 100%;
+    opacity: .9;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    float: left;
+    background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
+    color: #D8D8D8;
+    font-family: Helvetica;
+    font-size: 0.77em;
+    color: #ABAEB9;
+    letter-spacing: 0.01em;
+    text-align: left;
+    line-height: 2.95em;
+    text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
+    list-style: none;
+}
+
+.sidebar .logo-container{
+    padding: 0.64em 0 0.32em 0;
+}
+
+.logo{
+    padding: 1.28em;
+}
+
+.sidebar .sidebar-list{
+    float: left;
+    list-style: none;
+    margin:0;
+}
+
+.sidebar .sidebar-list .sidebar-item{
+    float: left;
+    width: 100%;
+    padding: 0.32em 0 0.32em 0;
+}
+
+.sidebar .sidebar-list .sidebar-item:hover{
+    background: #233456;
+    cursor: pointer;
+}
+
+.sidebar .sidebar-list .sidebar-item img{
+    float: left;
+    padding:  0.77em 1.28em;
+}
+
+.sidebar .sidebar-list .sidebar-item div{
+    float: left;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .sidebar{
+        display: block;
+        position: relative;
+        width: 20%;
+        z-index: 0;
+        float: left;
+        background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
+        color: #D8D8D8;
+        font-family: Helvetica;
+        font-size: 0.77em;
+        color: #ABAEB9;
+        letter-spacing: 0.01em;
+        text-align: left;
+        line-height: 2.95em;
+        text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
+        list-style: none;
+        height: 62.0em;
+        opacity: 1;
+    }
+}
+
+/* xtra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .sidebar{
+        display: block;
+        position: relative;
+        width: 20%;
+        z-index: 0;
+        float: left;
+        background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
+        color: #D8D8D8;
+        font-family: Helvetica;
+        font-size: 0.77em;
+        color: #ABAEB9;
+        letter-spacing: 0.01em;
+        text-align: left;
+        line-height: 2.95em;
+        text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
+        list-style: none;
+        height: 98.0em;
+        opacity: 1;
+    }
+}
