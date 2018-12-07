@@ -14,15 +14,14 @@ class GoogleMap extends Component {
                     lat={location.lat} 
                     lng={location.lng} 
                     id={location.id}
-                    location={location.address} 
+                    location={location.address}
+                    selected={location.selected} 
                     click={this.onMarkerClickedHandler}/>
         )
     
     onMarkerClickedHandler = (id) =>{
         console.log('id => '+id)
     }
-
-    shouldComponentUpdate = () => false
 
     render() {
 
