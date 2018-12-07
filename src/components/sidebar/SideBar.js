@@ -1,43 +1,46 @@
 import React from 'react';
+import InfoWidget from '../infowidget';
 
-import * as menuAction from '../../store/actions/appRoute';
 import PropTypes from 'prop-types';
 import '../../assets/styles/layout.css';
+import logo from '../../assets/icons/medwing.svg';
 import './sidebar.css';
 
 const SideBarLogo = () =>{
 
-    const logo_label = 'inventorum';
+    const logo_label = 'medwing';
     return <ul className='logo-container'>
                 <li className='logo'>
-                     <img alt={logo_label}></img>
+                     <img src={logo} alt={logo_label}></img>
                 </li>
             </ul>
 }
 
-const SideBarMenu = props =>
-<ul className='sidebar-list'>
-               <li className='sidebar-item' onClick={()=>props.menuClicked(menuAction.MY_LOCATIONS.module)}>
-                   <img alt={'point of sales'}/>
-                   <div>MY LOCATION</div>
-               </li>
-             
-            </ul>
+const SearchInput = (props) =>
+    <input className='search' onChange={props.onChange} />
 
-const SideBarMenuItemContainer = props =>{
-    return <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
+
+const SideBarMenuItemContainer = props =>
+        <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
             <SideBarLogo />
-            <SideBarMenu menuClicked={props.menuEvent}/>
+            <SearchInput onChange={props.onSearchChange}/>
+            {props.locations.map((location)=>
+                <InfoWidget key={location.id} 
+                            id={location.id}
+                            title={location.title} 
+                            address={location.address}
+                            lat={location.lat}
+                            lng={location.lng}
+                            click={props.locationWidgetClick} />
+            )}
         </nav>
     
-}
 
-SideBarMenu.propTypes = {
-    menuClicked: PropTypes.func.isRequired
-}
 
 SideBarMenuItemContainer.propTypes = {
-    showSideBar: PropTypes.bool.isRequired
+    showSideBar: PropTypes.bool.isRequired,
+    onSearchChange: PropTypes.func.isRequired,
+    locations : PropTypes.array.isRequired
 }
 
 export default SideBarMenuItemContainer

@@ -23,3 +23,7 @@ export const searchLocation = (value) => (
 export const searchLocationFulfilled = (value) => (
     {type: actionTypes.SEARCH_LOCATION_FULFILLED, payload: value}
 )
+
+export const widgetSelectedLocation = (id) => (
+    {type: actionTypes.WIDGET_SELECTED_LOCATION, payload: id}
+)

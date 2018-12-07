@@ -8,22 +8,26 @@
     display:none;
     position: absolute;
     width: 57%;
+    padding: 5px;
     height: 100%;
-    opacity: .9;
+    opacity: .7;
     z-index: 1;
     left: 0;
     top: 0;
     float: left;
-    background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
-    color: #D8D8D8;
+    color: #555;
     font-family: Helvetica;
     font-size: 0.77em;
-    color: #ABAEB9;
     letter-spacing: 0.01em;
     text-align: left;
     line-height: 2.95em;
-    text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
     list-style: none;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateX(0px);
+    transition-property: -webkit-transform,transform,opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.0,0.0,0.2,1);
 }
 
 .sidebar .logo-container{
@@ -31,7 +35,8 @@
 }
 
 .logo{
-    padding: 1.28em;
+    padding: .28em .48em;
+    width: 6.84em;
 }
 
 .sidebar .sidebar-list{
@@ -60,26 +65,42 @@
     float: left;
 }
 
+.sidebar .search{
+    width: 99%;
+    height: 2.2em;
+    padding: 0.30em;
+    font-size: 0.96em;
+    border-style: none;
+    outline: none;
+    background: #EBECEE;
+    letter-spacing: .08em;
+    color: #555;
+}
+
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     .sidebar{
         display: block;
-        position: relative;
-        width: 20%;
-        z-index: 0;
+        position: absolute;
+        width: 25%;
+        padding: 5px;
+        z-index: 1;
         float: left;
-        background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
-        color: #D8D8D8;
+        color: #555;
         font-family: Helvetica;
         font-size: 0.77em;
-        color: #ABAEB9;
         letter-spacing: 0.01em;
         text-align: left;
         line-height: 2.95em;
-        text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
         list-style: none;
+        background: #fff;
         height: 62.0em;
         opacity: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transform: translateX(0px);
+        transition-property: -webkit-transform,transform,opacity;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(0.0,0.0,0.2,1);
     }
 }
 
@@ -87,21 +108,25 @@
 @media (min-width: 1200px) {
     .sidebar{
         display: block;
-        position: relative;
-        width: 20%;
-        z-index: 0;
+        position: absolute;
+        width: 25%;
+        padding: 5px;
+        z-index: 1;
         float: left;
-        background-image: linear-gradient(-180deg, #192842 3%, #382C50 100%);
-        color: #D8D8D8;
+        color: #555;
         font-family: Helvetica;
         font-size: 0.77em;
-        color: #ABAEB9;
         letter-spacing: 0.01em;
         text-align: left;
         line-height: 2.95em;
-        text-shadow: 0 0.13em 0.25em rgba(0,0,0,0.50);
         list-style: none;
+        background: #fff;
         height: 98.0em;
         opacity: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transform: translateX(0px);
+        transition-property: -webkit-transform,transform,opacity;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(0.0,0.0,0.2,1);
     }
 }

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import SideBar from './components/sidebar/SideBar';
-import AppBar from './components/appbar/AppBar';
 import LocationContainer from './containers/location/LocationContainer';
 import * as appRoute from './store/actions/appRoute';
 import * as appAction from './store/actions/appActionCreators';
+import {fetchLocations, widgetSelectedLocation} from './store/actions/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 
@@ -23,6 +23,10 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.loadLocations();
+  }
+
   initApp = (module, url) => {
     this.props.setModule(module);
     this.props.hideSideBar();
@@ -35,22 +39,28 @@ class App extends Component {
     this.props.showSideBar();
   }
 
+  locationWidgetClickHandler = (id) => {
+    console.log('id => '+id);
+    this.props.selectedLocation(id);
+  }
+
+  onSearchChangeHandler = (event) =>{
+    console.log(event.target.value);
+  }
+
   render() {
-    // Set default username for test purposes
-    const user = {username: 'Patricia Kasse', avatar: '/assets/avatars/antonio.svg'};
+    const {locations,sideBarToggle} = this.props;
 
     return <div>
-              <SideBar showSideBar={this.props.sideBarToggle} menuEvent={this.menuEventHandler}/>
+              <SideBar locations={locations} 
+                       showSideBar={sideBarToggle} 
+                       onSearchChange={this.onSearchChangeHandler}
+                       locationWidgetClick={this.locationWidgetClickHandler}/>
               <div className='content'>
-                <AppBar title={this.props.module}
-                        username={user.username} 
-                        avatar={user.avatar} 
-                        sideBarToggleClicked={this.sideBarToggleClickedHandler}/>
                 <Router>
                   <div>   
                       {/*Show Contacts Page as default  */}
                     <Route path='/' exact component={LocationContainer}/> 
-                    <Route path='/app/contacts' exact component={LocationContainer}/>
                   </div>
                 </Router>
               </div>
@@ -62,7 +72,8 @@ class App extends Component {
 const mapStateToProps = state =>{
   return {
      module : state.app.module,
-     sideBarToggle: state.app.sideBarToggle
+     sideBarToggle: state.app.sideBarToggle,
+     locations: state.locations.locations
   }
 }
 
@@ -70,7 +81,9 @@ const mapDispatchToProps = dispatch =>{
   return {
     setModule : (module) => dispatch(appAction.setModule(module)),
     showSideBar : () => dispatch(appAction.showSideBar()),
-    hideSideBar : () => dispatch(appAction.hideSideBar())
+    hideSideBar : () => dispatch(appAction.hideSideBar()),
+    loadLocations : () => dispatch(fetchLocations()),
+    selectedLocation : (id) => dispatch(widgetSelectedLocation(id))
   }
 }
 

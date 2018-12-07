@@ -7,8 +7,6 @@ import {REQUEST_DELAY} from '../../config';
 // import {BASE_URL} from '../../config';
 
 function* getAllLocationsAsync(){
-    // const path = '/api/users?page=1';
-    //const users = yield axios.get(BASE_URL+path);
     yield put(locationActionCreator.fetchLocationLoadingStart());
     const locations = yield axios.get('/resources/locations.json');
     yield put(locationActionCreator.fetchLocationFulfilled(locations.data));
