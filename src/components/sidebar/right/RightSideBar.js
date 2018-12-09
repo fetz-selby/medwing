@@ -34,7 +34,8 @@ SideBarMenuItemContainer.propTypes = {
     fetchAddressSuggestion: PropTypes.func.isRequired,
     clearAddressSuggestion: PropTypes.func.isRequired,
     addressSuggestions: PropTypes.array.isRequired,
-    isUpdate: PropTypes.bool.isRequired
+    isUpdate: PropTypes.bool.isRequired,
+    location: PropTypes.object
 }
 
 export default SideBarMenuItemContainer

@@ -10,7 +10,6 @@ class DetailForm extends Component {
 
     // When the compoennt is loaded for the first time.
     componentWillMount() {
-        console.log('componentWillMount => '+JSON.stringify(this.props.location));
         if (this.props.location) this.setDefaultState(this.props.location);
     }
 
@@ -36,13 +35,17 @@ class DetailForm extends Component {
     titleChangeHandler=(evt, newValue)=>{
         this.setState({
             title: newValue
-        })
+        });
+
+        this.hasChanged = true;
     }
 
     onSuggestedChange = (evt, { newValue }) =>{
         this.setState({
             suggested: newValue
         });
+
+        this.hasChanged = true;
     }
 
     onSuggestionSelected = () =>{
@@ -120,7 +123,7 @@ class DetailForm extends Component {
 
             <div className='row'>
                 <div className={isUpdate?'delete-btn':'delete-btn light-hide'}>Delete</div>
-                <button className='save-btn'>{isUpdate ? 'Update':'Save'}</button>
+                {this.hasChanged?<button className='save-btn'>{isUpdate ? 'Update':'Save'}</button>:''}
             </div>
         </div>
     }
