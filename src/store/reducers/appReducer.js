@@ -1,10 +1,11 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/app/appActionTypes';
 
 const initial = {
     logout: false,
     // Set default app view to locations for test purposes
     module: 'Locations',
-    sideBarToggle: false
+    sideBarToggle: false,
+    isLocationUpdate: false
 }
 
 const reducer = (state = initial, action) => {
@@ -51,6 +52,24 @@ const reducer = (state = initial, action) => {
             return {
                 ...state,
                 sideBarToggle
+            }
+        }
+
+        case actionTypes.APP_LOCATION_IS_UPDATE:{
+            const isLocationUpdate = true;
+            console.log('IS UPDATE '+isLocationUpdate);
+            return {
+                ...state,
+                isLocationUpdate
+            }
+        }
+
+        case actionTypes.APP_LOCATION_NOT_UPDATE:{
+            const isLocationUpdate = false;
+
+            return {
+                ...state,
+                isLocationUpdate
             }
         }
         
