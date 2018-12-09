@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/locations/locationActionTypes';
 import _ from 'lodash';
 
 const initial = {
@@ -8,6 +8,7 @@ const initial = {
         {id: 3, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
         {id: 4, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975}
     ],
+    local_locations: [],
     searchValue: '',
     location_id: 0,
     isLoading: false
@@ -17,6 +18,7 @@ const reducer = (state = initial, action) => {
     switch(action.type){
         case actionTypes.FETCH_LOCATIONS_FULFILLED:{
             const locations = _.map(state.locations, (location)=>{location.selected=false; return location});
+            const local_locations = [...locations];
             const searchValue = '';
             // const activeUsers = _.filter([...action.payload], {active: true});
             const isLoading = false;
@@ -26,6 +28,7 @@ const reducer = (state = initial, action) => {
             return{
                 ...state,
                 searchValue,
+                local_locations,
                 locations,
                 isLoading
             }
@@ -43,7 +46,6 @@ const reducer = (state = initial, action) => {
             });
             const isLoading = false;
 
-            console.log('Updated locations => '+JSON.stringify(locations));
             return{
                 ...state,
                 location_id,
@@ -63,14 +65,17 @@ const reducer = (state = initial, action) => {
             const val = action.payload.trim().toLowerCase();
 
             //Search by all category and search in a uniform case [lowercase]
-            const match = _.filter(state.locations, (location)=>_.includes(location.email.toLowerCase(), val) || 
-                                                              _.includes(location.mobile, val) ||
-                                                              _.includes(location.name.toLowerCase(), val) ||
-                                                              _.includes(location.department.toLowerCase(), val));
+            const result = _.filter(state.local_locations, (location)=>_.includes(location.title.toLowerCase(), val) || 
+                                                              _.includes(location.lat+'', val) ||
+                                                              _.includes(location.lng+'', val) ||
+                                                              _.includes(location.address.toLowerCase(), val));
+
+            const locations = val.length?result:[...state.local_locations];
             const isLoading = false;
 
             return{
                 ...state,
+                locations,
                 isLoading
             }
         }
