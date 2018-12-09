@@ -1,10 +1,9 @@
-import * as actions from '../actions/actionTypes';
-import * as locationActionCreator from '../actions/locationActionCreators';
+import {FETCH_LOCATIONS, SEARCH_LOCATION} from '../actions/locations/locationActionTypes';
+import * as locationActionCreator from '../actions/locations/locationActionCreators';
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
 import {REQUEST_DELAY} from '../../config';
-// import {BASE_URL} from '../../config';
 
 function* getAllLocationsAsync(){
     yield put(locationActionCreator.fetchLocationLoadingStart());
@@ -19,6 +18,6 @@ function* searchLocation(action){
 }
 
 export default function* watchLocations(){
-    yield takeLatest(actions.FETCH_LOCATIONS, getAllLocationsAsync);
-    yield takeLatest(actions.SEARCH_LOCATION, searchLocation)   
+    yield takeLatest(FETCH_LOCATIONS, getAllLocationsAsync);
+    yield takeLatest(SEARCH_LOCATION, searchLocation)   
 }
