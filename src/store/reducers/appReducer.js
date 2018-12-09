@@ -57,7 +57,6 @@ const reducer = (state = initial, action) => {
 
         case actionTypes.APP_LOCATION_IS_UPDATE:{
             const isLocationUpdate = true;
-            console.log('IS UPDATE '+isLocationUpdate);
             return {
                 ...state,
                 isLocationUpdate
