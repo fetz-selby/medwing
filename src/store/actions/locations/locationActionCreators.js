@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './locationActionTypes';
 
 export const fetchLocations = () => (
     {type: actionTypes.FETCH_LOCATIONS}
@@ -12,8 +12,8 @@ export const fetchLocationLoadingStart = () => (
     {type: actionTypes.FETCH_LOCATIONS_LOADING_START}
 )
 
-export const fetchLocationFulfilled = (users) => (
-    {type: actionTypes.FETCH_LOCATIONS_FULFILLED, payload: users}
+export const fetchLocationFulfilled = (locations) => (
+    {type: actionTypes.FETCH_LOCATIONS_FULFILLED, payload: locations}
 )
 
 export const searchLocation = (value) => (

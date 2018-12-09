@@ -1,10 +1,10 @@
 import React from 'react';
-import InfoWidget from '../infowidget';
+import InfoWidget from '../../infowidget';
 
 import PropTypes from 'prop-types';
-import '../../assets/styles/layout.css';
-import logo from '../../assets/icons/medwing.svg';
-import './sidebar.css';
+import '../../../assets/styles/layout.css';
+import logo from '../../../assets/icons/medwing.svg';
+import './left-sidebar.css';
 
 const SideBarLogo = () =>{
 
