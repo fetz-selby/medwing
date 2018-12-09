@@ -8,20 +8,32 @@ class DetailForm extends Component {
             suggested: ''
         }
 
-    componentWillMount=()=>{
-        if(this.props.location){
-            const {id,title,address,lat,lng} = this.props.location;
-            this.setState({
-                id,
-                title,
-                address,
-                lat,
-                lng
-            })
-        }
+    // When the compoennt is loaded for the first time.
+    componentWillMount() {
+        console.log('componentWillMount => '+JSON.stringify(this.props.location));
+        if (this.props.location) this.setDefaultState(this.props.location);
     }
 
-    titleChangeHandler=(evt, {newValue})=>{
+    // When the component is loaded again.
+    componentWillReceiveProps(nextProps) {
+        this.setDefaultState(nextProps.location);
+    }
+
+    // Prefill input fields with the available data by setting default state.
+    setDefaultState(location) {
+
+        // Set state using data.
+        this.setState({
+            id: location.id,
+            title: location.title,
+            address: location.address,
+            lat: location.lat,
+            lng: location.lng,
+            suggested: location.address?location.address:''
+        })
+    }
+
+    titleChangeHandler=(evt, newValue)=>{
         this.setState({
             title: newValue
         })
@@ -119,7 +131,7 @@ DetailForm.propTypes = {
     location: PropTypes.object,
     isUpdate: PropTypes.bool.isRequired,
     clearSuggestions: PropTypes.func,
-    fetchSuggestions: PropTypes.func
+    fetchSuggestions: PropTypes.func,
 }
 
 export default DetailForm;
