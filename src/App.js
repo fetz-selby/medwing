@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import SideBar from './components/sidebar/SideBar';
+import LeftSideBar from './components/sidebar/left';
+import RightSideBar from './components/sidebar/right';
 import LocationContainer from './containers/location/LocationContainer';
-import * as appRoute from './store/actions/appRoute';
-import * as appAction from './store/actions/appActionCreators';
-import {fetchLocations, widgetSelectedLocation} from './store/actions/locationActionCreators';
+import * as appRoute from './store/actions/app/appRoute';
+import * as appAction from './store/actions/app/appActionCreators';
+import * as geoAction from './store/actions/geo/geoActionCreators';
+import {fetchLocations, widgetSelectedLocation, searchLocation} from './store/actions/locations/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 
@@ -30,40 +32,50 @@ class App extends Component {
   initApp = (module, url) => {
     this.props.setModule(module);
     this.props.hideSideBar();
-    this.redirect(url);
   }
-
-  redirect = (path) => window.location.href = path;
 
   sideBarToggleClickedHandler = () => {
     this.props.showSideBar();
   }
 
   locationWidgetClickHandler = (id) => {
-    console.log('id => '+id);
     this.props.selectedLocation(id);
+    this.props.isLocationUpdate();
   }
 
   onSearchChangeHandler = (event) =>{
-    console.log(event.target.value);
+    this.props.searchLocation(event.target.value);
+  }
+
+  fetchAddressSuggestion=(address)=>{
+    this.props.fetchAddress(address);
+  }
+
+  clearAddressSuggestion=()=>{
+    console.log('Clear suggestions');
   }
 
   render() {
-    const {locations,sideBarToggle} = this.props;
-
+    const {locations,sideBarToggle,addressSuggestions, locationUpdate} = this.props;
     return <div>
-              <SideBar locations={locations} 
+              <LeftSideBar locations={locations} 
                        showSideBar={sideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
                        locationWidgetClick={this.locationWidgetClickHandler}/>
               <div className='content'>
                 <Router>
                   <div>   
-                      {/*Show Contacts Page as default  */}
                     <Route path='/' exact component={LocationContainer}/> 
                   </div>
                 </Router>
               </div>
+              <RightSideBar 
+                      showSideBar={sideBarToggle} 
+                      fetchAddressSuggestion={this.fetchAddressSuggestion}
+                      clearAddressSuggestion={this.clearAddressSuggestion}
+                      addressSuggestions={addressSuggestions}
+                      isUpdate={locationUpdate}
+              />
           </div>
     
   }
@@ -73,7 +85,9 @@ const mapStateToProps = state =>{
   return {
      module : state.app.module,
      sideBarToggle: state.app.sideBarToggle,
-     locations: state.locations.locations
+     locations: state.locations.locations,
+     addressSuggestions: state.geo.suggestions,
+     locationUpdate: state.app.isLocationUpdate
   }
 }
 
@@ -83,7 +97,10 @@ const mapDispatchToProps = dispatch =>{
     showSideBar : () => dispatch(appAction.showSideBar()),
     hideSideBar : () => dispatch(appAction.hideSideBar()),
     loadLocations : () => dispatch(fetchLocations()),
-    selectedLocation : (id) => dispatch(widgetSelectedLocation(id))
+    selectedLocation : (id) => dispatch(widgetSelectedLocation(id)),
+    searchLocation: (value) => dispatch(searchLocation(value)),
+    fetchAddress: (value) => dispatch(geoAction.fetchAddressSearch(value)),
+    isLocationUpdate:()=>dispatch(appAction.isLocationUpdate())
   }
 }
 
