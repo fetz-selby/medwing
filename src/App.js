@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   render() {
-    const {locations,sideBarToggle,addressSuggestions, locationUpdate} = this.props;
+    const {locations, location, sideBarToggle, addressSuggestions, locationUpdate} = this.props;
     return <div>
               <LeftSideBar locations={locations} 
                        showSideBar={sideBarToggle} 
@@ -75,6 +75,7 @@ class App extends Component {
                       clearAddressSuggestion={this.clearAddressSuggestion}
                       addressSuggestions={addressSuggestions}
                       isUpdate={locationUpdate}
+                      location={location}
               />
           </div>
     
@@ -87,7 +88,8 @@ const mapStateToProps = state =>{
      sideBarToggle: state.app.sideBarToggle,
      locations: state.locations.locations,
      addressSuggestions: state.geo.suggestions,
-     locationUpdate: state.app.isLocationUpdate
+     locationUpdate: state.app.isLocationUpdate,
+     location: state.locations.selectedLocation
   }
 }
 
