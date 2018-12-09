@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import * as locationActions from '../../store/actions/locationActionCreators';
+import * as locationActions from '../../store/actions/locations/locationActionCreators';
 
 import GoogleMap from '../../components/map';
 import './location.css';
