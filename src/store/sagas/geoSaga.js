@@ -13,6 +13,10 @@ function* getAddressSearchAsync(action){
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
     const address = action.payload;
 
+    if(address.trim().length < 3){
+        return;
+    }
+
     yield delay(REQUEST_DELAY);
 
     const addresses = yield axios.get(url, {params :{key,address}});
