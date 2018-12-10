@@ -32,6 +32,6 @@ export const isLocationUpdate = () => (
     {type: actionTypes.APP_LOCATION_IS_UPDATE}
 )
 
-export const isLocationNotUpdate = () => (
+export const isNotLocationUpdate = () => (
     {type: actionTypes.APP_LOCATION_NOT_UPDATE}
 )
