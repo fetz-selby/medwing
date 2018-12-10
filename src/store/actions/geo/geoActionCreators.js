@@ -15,3 +15,7 @@ export const fetchAddressSearchLoadingStart = () => (
 export const fetchAddressSearchFulfilledWithNoMatch=()=>(
     {type: actionTypes.ADDRESS_SEARCH_FULFILLED_WITH_NO_MATCH}
 )
+
+export const clearAddressSuggestions=()=>(
+    {type: actionTypes.ADDRESS_SEARCH_CLEAR_SUGGESTIONS}
+) 

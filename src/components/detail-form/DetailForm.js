@@ -46,14 +46,35 @@ class DetailForm extends Component {
         });
 
         this.hasChanged = true;
+        this.props.fetchSuggestions(newValue);
+        this.updateCurrentLocationWithState(newValue);
     }
 
     onSuggestionSelected = () =>{
         this.setState({
             lat: this.selectedSuggestion.lat,
             lng: this.selectedSuggestion.lng,
-            address: this.selectedSuggestion.address
+            address: this.selectedSuggestion.address,
+            suggested: this.selectedSuggestion.address
         })
+
+        this.updateCurrentLocationWithSuggest();
+    }
+
+    updateCurrentLocationWithSuggest=()=>{
+        this.props.currentLocationState({lat:this.selectedSuggestion.lat,
+                                        lng:this.selectedSuggestion.lng,
+                                        address: this.selectedSuggestion.address,
+                                        title: this.state.title,
+                                        id: this.state.id});
+    }
+
+    updateCurrentLocationWithState=(value)=>{
+        this.props.currentLocationState({lat:0,
+                                        lng:0,
+                                        address: value,
+                                        title: this.state.title,
+                                        id: this.state.id});
     }
 
     onSuggestionsClearRequested = () => {
@@ -61,7 +82,7 @@ class DetailForm extends Component {
     };
 
     onSuggestionsFetchRequested = ({value}) => {
-        this.props.fetchSuggestions(value);
+        //this.props.fetchSuggestions(value);
     }
 
     getSuggestionValue = suggestion => {this.selectedSuggestion = {...suggestion}; return suggestion.address};
@@ -135,6 +156,7 @@ DetailForm.propTypes = {
     isUpdate: PropTypes.bool.isRequired,
     clearSuggestions: PropTypes.func,
     fetchSuggestions: PropTypes.func,
+    currentLocationState: PropTypes.func.isRequired
 }
 
 export default DetailForm;

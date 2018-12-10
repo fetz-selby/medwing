@@ -7,7 +7,7 @@ import LocationContainer from './containers/location/LocationContainer';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
-import {fetchLocations, widgetSelectedLocation, searchLocation} from './store/actions/locations/locationActionCreators';
+import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation} from './store/actions/locations/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 
@@ -53,6 +53,11 @@ class App extends Component {
 
   clearAddressSuggestion=()=>{
     console.log('Clear suggestions');
+    this.props.clearAddressSuggestion();
+  }
+
+  currentLocationState=(location)=>{
+    this.props.updateCurrentLocation(location);
   }
 
   render() {
@@ -76,6 +81,7 @@ class App extends Component {
                       addressSuggestions={addressSuggestions}
                       isUpdate={locationUpdate}
                       location={location}
+                      currentLocationState={this.currentLocationState}
               />
           </div>
     
@@ -102,7 +108,9 @@ const mapDispatchToProps = dispatch =>{
     selectedLocation : (id) => dispatch(widgetSelectedLocation(id)),
     searchLocation: (value) => dispatch(searchLocation(value)),
     fetchAddress: (value) => dispatch(geoAction.fetchAddressSearch(value)),
-    isLocationUpdate:()=>dispatch(appAction.isLocationUpdate())
+    isLocationUpdate:()=>dispatch(appAction.isLocationUpdate()),
+    updateCurrentLocation: (location)=>dispatch(updateCurrentLocation(location)),
+    clearAddressSuggestion:()=>dispatch(geoAction.clearAddressSuggestions())
   }
 }
 

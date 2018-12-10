@@ -61,6 +61,15 @@ const reducer = (state = initial, action) => {
             }
         }
 
+        case actionTypes.UPDATE_CURRENT_LOCATION:{
+            const selectedLocation = action.payload;
+            console.log('selectedLocation => '+JSON.stringify(selectedLocation));
+            return {
+                ...state,
+                selectedLocation
+            }
+        }
+
         case actionTypes.SEARCH_LOCATION_FULFILLED:{
             const val = action.payload.trim().toLowerCase();
 

@@ -34,6 +34,14 @@ const reducer = (state = initial, action) => {
                 suggestions
             }
         }
+
+        case actionTypes.ADDRESS_SEARCH_CLEAR_SUGGESTIONS:{
+            const suggestions = [];
+            return {
+                ...state,
+                suggestions
+            }
+        }
         
         default:{
             return{
