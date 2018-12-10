@@ -4,7 +4,8 @@ const initial = {
     logout: false,
     // Set default app view to locations for test purposes
     module: 'Locations',
-    sideBarToggle: false,
+    leftSideBarToggle: true,
+    rightSideBarToggle: true,
     isLocationUpdate: false
 }
 
@@ -37,21 +38,39 @@ const reducer = (state = initial, action) => {
             }
         }
 
-        case actionTypes.APP_SHOW_SIDEBAR:{
-            const sideBarToggle = true;
+        case actionTypes.APP_SHOW_LEFT_SIDEBAR:{
+            const leftSideBarToggle = true;
 
             return {
                 ...state,
-                sideBarToggle
+                leftSideBarToggle
             }
         }
 
-        case actionTypes.APP_HIDE_SIDEBAR:{
-            const sideBarToggle = false;
+        case actionTypes.APP_HIDE_LEFT_SIDEBAR:{
+            const leftSideBarToggle = false;
 
             return {
                 ...state,
-                sideBarToggle
+                leftSideBarToggle
+            }
+        }
+
+        case actionTypes.APP_SHOW_RIGHT_SIDEBAR:{
+            const rightSideBarToggle = true;
+
+            return {
+                ...state,
+                rightSideBarToggle
+            }
+        }
+
+        case actionTypes.APP_HIDE_RIGHT_SIDEBAR:{
+            const rightSideBarToggle = false;
+            console.log('Toggled! '+rightSideBarToggle);
+            return {
+                ...state,
+                rightSideBarToggle
             }
         }
 
