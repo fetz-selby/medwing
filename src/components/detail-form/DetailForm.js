@@ -5,7 +5,8 @@ import './detail-form.css';
 
 class DetailForm extends Component {
         state = {
-            suggested: ''
+            suggested: '',
+            showError: false
         }
 
     // When the compoennt is loaded for the first time.
@@ -30,6 +31,8 @@ class DetailForm extends Component {
             lng: location.lng,
             suggested: location.address?location.address:''
         })
+
+        this.errorMsg = '';
     }
 
     titleChangeHandler=(evt, newValue)=>{
@@ -59,6 +62,7 @@ class DetailForm extends Component {
         })
 
         this.updateCurrentLocationWithSuggest();
+        this.showError(false);
     }
 
     updateCurrentLocationWithSuggest=()=>{
@@ -85,16 +89,51 @@ class DetailForm extends Component {
         //this.props.fetchSuggestions(value);
     }
 
+    getDetails=()=>{
+        return {address: this.state.suggested,
+                lat: this.state.lat,
+                lng: this.state.lng,
+                title: (this.state.title)?this.state.title:'Unknown',
+                id: this.state.id}
+    }
+
+    showError=(isShow)=>{
+        if(isShow){
+            this.errorMsg = 'Invalid Address';
+            this.setState({
+                showError: true
+            })
+        }else{
+            this.errorMsg = '';
+            this.setState({
+                showError: false
+            })
+        }
+    }
+
+    onUpdateHandler=()=>{
+        if(!(this.state.lat && this.state.lng)){
+            this.showError(true);
+            return;
+        }
+
+        this.showError(false);
+
+        //Send the details specifying if new or update
+        (this.state.id)?this.props.onUpdate(this.getDetails(), true)
+        :this.props.onUpdate(this.getDetails(), false);
+    }
+
     getSuggestionValue = suggestion => {this.selectedSuggestion = {...suggestion}; return suggestion.address};
 
     renderSuggestion = suggestion => (
         <div>
-        {suggestion.address}
+            {suggestion.address}
         </div>
     );
 
     render(){
-        const {suggested} = this.state;
+        const {suggested, showError} = this.state;
         const {suggestions, isUpdate} = this.props;
     
         const inputProps = {
@@ -103,9 +142,10 @@ class DetailForm extends Component {
             onChange: this.onSuggestedChange
         };
 
-
         return <div className='detail-form'>
-
+            <div className='row'>
+                <div className={showError?'display':'display light-hide'}>{this.errorMsg}</div>
+            </div>
             <div className='row'>
                 <div className='label'>Title</div>
                 <div className='clearfix'></div>
@@ -144,7 +184,7 @@ class DetailForm extends Component {
 
             <div className='row'>
                 <div className={isUpdate?'delete-btn':'delete-btn light-hide'}>Delete</div>
-                {this.hasChanged?<button className='save-btn'>{isUpdate ? 'Update':'Save'}</button>:''}
+                {this.hasChanged?<button onClick={this.onUpdateHandler} className='save-btn'>{isUpdate ? 'Update':'Save'}</button>:''}
             </div>
         </div>
     }
@@ -156,7 +196,8 @@ DetailForm.propTypes = {
     isUpdate: PropTypes.bool.isRequired,
     clearSuggestions: PropTypes.func,
     fetchSuggestions: PropTypes.func,
-    currentLocationState: PropTypes.func.isRequired
+    currentLocationState: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func
 }
 
 export default DetailForm;
