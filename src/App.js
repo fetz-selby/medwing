@@ -41,10 +41,16 @@ class App extends Component {
   locationWidgetClickHandler = (id) => {
     this.props.selectedLocation(id);
     this.props.isLocationUpdate();
+    this.props.showRightSideBar();
   }
 
   onSearchChangeHandler = (event) =>{
     this.props.searchLocation(event.target.value);
+  }
+
+  onCloseRightSideBar = () => {
+    console.log('Close me!');
+    this.props.hideRightSideBar();
   }
 
   fetchAddressSuggestion=(address)=>{
@@ -61,10 +67,11 @@ class App extends Component {
   }
 
   render() {
-    const {locations, location, sideBarToggle, addressSuggestions, locationUpdate} = this.props;
+    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate} = this.props;
+    console.log('RightSideBarToggle => '+rightSideBarToggle);
     return <div>
               <LeftSideBar locations={locations} 
-                       showSideBar={sideBarToggle} 
+                       showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
                        locationWidgetClick={this.locationWidgetClickHandler}/>
               <div className='content'>
@@ -75,13 +82,14 @@ class App extends Component {
                 </Router>
               </div>
               <RightSideBar 
-                      showSideBar={sideBarToggle} 
+                      showSideBar={rightSideBarToggle} 
                       fetchAddressSuggestion={this.fetchAddressSuggestion}
                       clearAddressSuggestion={this.clearAddressSuggestion}
                       addressSuggestions={addressSuggestions}
                       isUpdate={locationUpdate}
                       location={location}
                       currentLocationState={this.currentLocationState}
+                      onClose={this.onCloseRightSideBar}
               />
           </div>
     
@@ -91,7 +99,8 @@ class App extends Component {
 const mapStateToProps = state =>{
   return {
      module : state.app.module,
-     sideBarToggle: state.app.sideBarToggle,
+     leftSideBarToggle: state.app.leftSideBarToggle,
+     rightSideBarToggle: state.app.rightSideBarToggle,
      locations: state.locations.locations,
      addressSuggestions: state.geo.suggestions,
      locationUpdate: state.app.isLocationUpdate,
@@ -102,8 +111,10 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch =>{
   return {
     setModule : (module) => dispatch(appAction.setModule(module)),
-    showSideBar : () => dispatch(appAction.showSideBar()),
-    hideSideBar : () => dispatch(appAction.hideSideBar()),
+    showLeftSideBar : () => dispatch(appAction.showLeftSideBar()),
+    hideLeftSideBar : () => dispatch(appAction.hideLeftSideBar()),
+    showRightSideBar : () => dispatch(appAction.showRightSideBar()),
+    hideRightSideBar : () => dispatch(appAction.hideRightSideBar()),
     loadLocations : () => dispatch(fetchLocations()),
     selectedLocation : (id) => dispatch(widgetSelectedLocation(id)),
     searchLocation: (value) => dispatch(searchLocation(value)),
