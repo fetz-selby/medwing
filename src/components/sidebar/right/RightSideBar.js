@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../../assets/styles/layout.css';
+import cancel from '../../../assets/icons/cancel.svg';
 import './right-sidebar.css';
 import DetailForm from '../../detail-form';
 
-// const SideBarLogo = () =>{
-
-//     const logo_label = 'medwing';
-//     return <ul className='logo-container'>
-//                 <li className='logo'>
-//                      <img src={logo} alt={logo_label}></img>
-//                 </li>
-//             </ul>
-// }
+const CloseButton = (props) =>
+    <div className='cancel-container'>
+        <img className='cancel' onClick={props.onClose} src={cancel} alt='cancel'/>
+    </div>
 
 
 const SideBarMenuItemContainer = props =>
         <nav className={props.showSideBar ? 'show sidebar-container sidebar-right' : 'sidebar-container sidebar-right'}>
+            <CloseButton onClose={props.onClose}/>
             <DetailForm suggestions={props.addressSuggestions}
                         location={props.location} 
                         isUpdate={props.isUpdate}
@@ -35,7 +32,8 @@ SideBarMenuItemContainer.propTypes = {
     addressSuggestions: PropTypes.array.isRequired,
     isUpdate: PropTypes.bool.isRequired,
     location: PropTypes.object,
-    currentLocationState: PropTypes.func.isRequired
+    currentLocationState: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
 }
 
 export default SideBarMenuItemContainer
