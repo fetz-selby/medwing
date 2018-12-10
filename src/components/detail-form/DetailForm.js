@@ -32,7 +32,7 @@ class DetailForm extends Component {
             suggested: location.address?location.address:''
         })
 
-        this.errorMsg = '';
+        this.errorMsg = 'No Message';
     }
 
     titleChangeHandler=(evt, newValue)=>{
