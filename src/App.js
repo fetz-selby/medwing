@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   onCloseRightSideBar = () => {
-    console.log('Close me!');
     this.props.hideRightSideBar();
   }
 
@@ -58,7 +57,6 @@ class App extends Component {
   }
 
   clearAddressSuggestion=()=>{
-    console.log('Clear suggestions');
     this.props.clearAddressSuggestion();
   }
 
@@ -67,8 +65,8 @@ class App extends Component {
   }
 
   render() {
-    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate} = this.props;
-    console.log('RightSideBarToggle => '+rightSideBarToggle);
+    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate, isNewDetail} = this.props;
+    console.log('isNewDetail => '+isNewDetail);
     return <div>
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
@@ -90,6 +88,7 @@ class App extends Component {
                       location={location}
                       currentLocationState={this.currentLocationState}
                       onClose={this.onCloseRightSideBar}
+                      isNewDetail={isNewDetail}
               />
           </div>
     
@@ -104,7 +103,8 @@ const mapStateToProps = state =>{
      locations: state.locations.locations,
      addressSuggestions: state.geo.suggestions,
      locationUpdate: state.app.isLocationUpdate,
-     location: state.locations.selectedLocation
+     location: state.locations.selectedLocation,
+     isNewDetail: state.locations.isNewLocation
   }
 }
 

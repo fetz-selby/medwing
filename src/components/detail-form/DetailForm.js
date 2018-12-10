@@ -9,7 +9,6 @@ class DetailForm extends Component {
             showError: false
         }
 
-    // When the compoennt is loaded for the first time.
     componentWillMount() {
         if (this.props.location) this.setDefaultState(this.props.location);
     }
@@ -19,17 +18,19 @@ class DetailForm extends Component {
         this.setDefaultState(nextProps.location);
     }
 
-    // Prefill input fields with the available data by setting default state.
     setDefaultState(location) {
 
         // Set state using data.
+        this.hasChanged = this.props.isNewDetail?false:true;
+
         this.setState({
             id: location.id,
             title: location.title,
             address: location.address,
             lat: location.lat,
             lng: location.lng,
-            suggested: location.address?location.address:''
+            suggested: location.address?location.address:'',
+            showError: false
         })
 
         this.errorMsg = 'No Message';
@@ -104,7 +105,7 @@ class DetailForm extends Component {
                 showError: true
             })
         }else{
-            this.errorMsg = '';
+            this.errorMsg = 'No Message';
             this.setState({
                 showError: false
             })
@@ -146,6 +147,7 @@ class DetailForm extends Component {
             <div className='row'>
                 <div className={showError?'display':'display light-hide'}>{this.errorMsg}</div>
             </div>
+            <div className='clearfix'></div>
             <div className='row'>
                 <div className='label'>Title</div>
                 <div className='clearfix'></div>
@@ -182,6 +184,7 @@ class DetailForm extends Component {
                 <input type='text' className='inputs' disabled={true} value={this.state.lng}/>
             </div>
 
+            <div className='clearfix'></div>
             <div className='row'>
                 <div className={isUpdate?'delete-btn':'delete-btn light-hide'}>Delete</div>
                 {this.hasChanged?<button onClick={this.onUpdateHandler} className='save-btn'>{isUpdate ? 'Update':'Save'}</button>:''}
@@ -197,7 +200,8 @@ DetailForm.propTypes = {
     clearSuggestions: PropTypes.func,
     fetchSuggestions: PropTypes.func,
     currentLocationState: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    isNewDetail: PropTypes.bool
 }
 
 export default DetailForm;

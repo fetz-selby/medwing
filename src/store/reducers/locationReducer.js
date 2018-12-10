@@ -20,6 +20,7 @@ const initial = {
     searchValue: '',
     location_id: 0,
     selectedLocation: {},
+    isNewLocation: false,
     isLoading: false
 }
 
@@ -30,18 +31,22 @@ const reducer = (state = initial, action) => {
             const local_locations = [...locations];
             const searchValue = '';
             const isLoading = false;
+            const isNewLocation = true;
+
             return{
                 ...state,
                 searchValue,
                 local_locations,
                 locations,
-                isLoading
+                isLoading,
+                isNewLocation
             }
         }
 
         case actionTypes.WIDGET_SELECTED_LOCATION:{
             let selectedLocation = {};
             const location_id = action.payload;
+            const isNewLocation = true;
             const locations = _.map(state.locations, (location)=>{
                 if(location.id === location_id){
                     location.selected = true;
@@ -56,6 +61,7 @@ const reducer = (state = initial, action) => {
             return{
                 ...state,
                 location_id,
+                isNewLocation,
                 locations,
                 selectedLocation,
                 isLoading
@@ -71,9 +77,10 @@ const reducer = (state = initial, action) => {
 
         case actionTypes.UPDATE_CURRENT_LOCATION:{
             const selectedLocation = action.payload;
-            console.log('selectedLocation => '+JSON.stringify(selectedLocation));
+            const isNewLocation = false;
             return {
                 ...state,
+                isNewLocation,
                 selectedLocation
             }
         }
