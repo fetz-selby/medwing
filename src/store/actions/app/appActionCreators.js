@@ -4,12 +4,20 @@ export const setModule = (module) => (
     {type: actionTypes.APP_MODULE_CHANGE, payload: module}
 )
 
-export const showSideBar = () => (
-    {type: actionTypes.APP_SHOW_SIDEBAR}
+export const showLeftSideBar = () => (
+    {type: actionTypes.APP_SHOW_LEFT_SIDEBAR}
 )
 
-export const hideSideBar = () => (
-    {type: actionTypes.APP_HIDE_SIDEBAR}
+export const showRightSideBar = () => (
+    {type: actionTypes.APP_SHOW_RIGHT_SIDEBAR}
+)
+
+export const hideLeftSideBar = () => (
+    {type: actionTypes.APP_HIDE_LEFT_SIDEBAR}
+)
+
+export const hideRightSideBar = () => (
+    {type: actionTypes.APP_HIDE_RIGHT_SIDEBAR}
 )
 
 export const startLoading = () => (
