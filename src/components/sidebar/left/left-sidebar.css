@@ -30,6 +30,16 @@
     background: #c62828;
 }
 
+/* Empty style */
+.empty-location{
+    text-align: center;
+    border: 1px solid #eaeaea;
+    padding: 50px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #c62828;
+}
+
 /* Styles for Sidebar */
 .sidebar{
     display:none;

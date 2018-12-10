@@ -25,13 +25,32 @@ const SearchInput = (props) =>
     <input className='search' placeholder='search saved location' onChange={props.onChange} />
 
 
-const SideBarMenuItemContainer = props =>
-        <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
+const SideBarMenuItemContainer = props =>{
+
+        function renderWidgets(locations){
+            return locations.map((location)=>
+                <InfoWidget key={location.id} 
+                                id={location.id}
+                                title={location.title} 
+                                address={location.address}
+                                lat={location.lat}
+                                lng={location.lng}
+                                click={props.locationWidgetClick} />
+            )
+        }
+
+        function renderEmpty(){
+            return <div className='empty-location'>Empty</div>
+        }
+
+        return <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
             <SideBarLogo />
             <AddLocationButton />
             <SearchInput onChange={props.onSearchChange}/>
             <div className='location-widget-container'>
-                {props.locations.map((location)=>
+                {props.locations.length ? renderWidgets(props.locations): renderEmpty()}
+
+                {/* {props.locations.map((location)=>
                     <InfoWidget key={location.id} 
                                 id={location.id}
                                 title={location.title} 
@@ -39,10 +58,10 @@ const SideBarMenuItemContainer = props =>
                                 lat={location.lat}
                                 lng={location.lng}
                                 click={props.locationWidgetClick} />
-                )}
+                )} */}
             </div>
         </nav>
-    
+}
 
 
 SideBarMenuItemContainer.propTypes = {
