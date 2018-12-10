@@ -10,10 +10,14 @@ const CloseButton = (props) =>
         <img className='cancel' onClick={props.onClose} src={cancel} alt='cancel'/>
     </div>
 
+const ClearFix = () =>
+    <div className='clearfix'></div>
+
 
 const SideBarMenuItemContainer = props =>
         <nav className={props.showSideBar ? 'show sidebar-container sidebar-right' : 'sidebar-container sidebar-right'}>
             <CloseButton onClose={props.onClose}/>
+            <ClearFix />
             <DetailForm suggestions={props.addressSuggestions}
                         location={props.location} 
                         isUpdate={props.isUpdate}

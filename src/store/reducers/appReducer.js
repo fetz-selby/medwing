@@ -5,7 +5,7 @@ const initial = {
     // Set default app view to locations for test purposes
     module: 'Locations',
     leftSideBarToggle: true,
-    rightSideBarToggle: true,
+    rightSideBarToggle: false,
     isLocationUpdate: false
 }
 
