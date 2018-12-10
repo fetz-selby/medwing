@@ -31,3 +31,7 @@ export const widgetSelectedLocation = (id) => (
 export const updateCurrentLocation = (location) => (
     {type: actionTypes.UPDATE_CURRENT_LOCATION, payload: location}
 )
+
+export const initNewLocation = () => (
+    {type: actionTypes.INIT_NEW_LOCATION}
+)

@@ -7,7 +7,7 @@ import LocationContainer from './containers/location/LocationContainer';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
-import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation} from './store/actions/locations/locationActionCreators';
+import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation, initNewLocation} from './store/actions/locations/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 
@@ -64,14 +64,21 @@ class App extends Component {
     this.props.updateCurrentLocation(location);
   }
 
+  onAddClickedHandler=()=>{
+    console.log('Add clicked');
+    this.props.isNotLocationUpdate();
+    this.props.initNewLocation();
+    this.props.showRightSideBar();
+  }
+
   render() {
     const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate, isNewDetail} = this.props;
-    console.log('isNewDetail => '+isNewDetail);
     return <div>
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
-                       locationWidgetClick={this.locationWidgetClickHandler}/>
+                       locationWidgetClick={this.locationWidgetClickHandler}
+                       onAddClicked={this.onAddClickedHandler} />
               <div className='content'>
                 <Router>
                   <div>   
@@ -120,8 +127,10 @@ const mapDispatchToProps = dispatch =>{
     searchLocation: (value) => dispatch(searchLocation(value)),
     fetchAddress: (value) => dispatch(geoAction.fetchAddressSearch(value)),
     isLocationUpdate:()=>dispatch(appAction.isLocationUpdate()),
+    isNotLocationUpdate:()=>dispatch(appAction.isNotLocationUpdate()),
     updateCurrentLocation: (location)=>dispatch(updateCurrentLocation(location)),
-    clearAddressSuggestion:()=>dispatch(geoAction.clearAddressSuggestions())
+    clearAddressSuggestion:()=>dispatch(geoAction.clearAddressSuggestions()),
+    initNewLocation:()=>dispatch(initNewLocation())
   }
 }
 

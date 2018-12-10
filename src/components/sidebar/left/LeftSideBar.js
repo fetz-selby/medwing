@@ -18,7 +18,7 @@ const SideBarLogo = () =>{
 
 const AddLocationButton = (props) =>
     <div className='add-map-container'>
-        <div className='add-map-btn'>Add Map</div>
+        <div className='add-map-btn' onClick={props.onAddClicked}>Add Map</div>
     </div>
 
 const SearchInput = (props) =>
@@ -45,20 +45,10 @@ const SideBarMenuItemContainer = props =>{
 
         return <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
             <SideBarLogo />
-            <AddLocationButton />
+            <AddLocationButton onAddClicked={props.onAddClicked}/>
             <SearchInput onChange={props.onSearchChange}/>
             <div className='location-widget-container'>
                 {props.locations.length ? renderWidgets(props.locations): renderEmpty()}
-
-                {/* {props.locations.map((location)=>
-                    <InfoWidget key={location.id} 
-                                id={location.id}
-                                title={location.title} 
-                                address={location.address}
-                                lat={location.lat}
-                                lng={location.lng}
-                                click={props.locationWidgetClick} />
-                )} */}
             </div>
         </nav>
 }
@@ -67,7 +57,8 @@ const SideBarMenuItemContainer = props =>{
 SideBarMenuItemContainer.propTypes = {
     showSideBar: PropTypes.bool.isRequired,
     onSearchChange: PropTypes.func.isRequired,
-    locations : PropTypes.array.isRequired
+    locations : PropTypes.array.isRequired,
+    onAddClicked: PropTypes.func
 }
 
 export default SideBarMenuItemContainer

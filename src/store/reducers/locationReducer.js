@@ -75,6 +75,17 @@ const reducer = (state = initial, action) => {
             }
         }
 
+        case actionTypes.INIT_NEW_LOCATION:{
+            const selectedLocation = {id:0, title:'', address:'',lat:'',lng:''};
+            const isNewLocation = false;
+
+            return {
+                ...state,
+                selectedLocation,
+                isNewLocation
+            }
+        }
+
         case actionTypes.UPDATE_CURRENT_LOCATION:{
             const selectedLocation = action.payload;
             const isNewLocation = false;
