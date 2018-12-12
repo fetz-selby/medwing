@@ -60,9 +60,10 @@ export const acquireSessionFailed = () =>(
     {type: actionTypes.APP_ACQUIRE_SESSION_FAILED}
 )
 
-export const acquireSessionFulfilled = (token, user_id) =>(
-    {type: actionTypes.APP_ACQUIRE_SESSION_FULFILLED, payload: {token, user_id}}
+export const acquireSessionFulfilled = (token, user_id, username) =>(
+    {type: actionTypes.APP_ACQUIRE_SESSION_FULFILLED, payload: {token, user_id, username}}
 )
 
-
-
+export const userLogout = () =>(
+    {type: actionTypes.APP_USER_LOGOUT}
+)

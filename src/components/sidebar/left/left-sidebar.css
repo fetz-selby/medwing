@@ -67,11 +67,24 @@
     transition-timing-function: cubic-bezier(0.0,0.0,0.2,1);
 }
 
-.sidebar .logo-container{
+.logo-container{
     padding: 0.64em 0 0.32em 0;
+    line-height: 5px;
 }
 
-.logo{
+.logo-container .logout{
+    float: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+    font-weight: 200;
+    color: #c62828;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.logo-container .logo{
+    float: left;
     padding: .28em .48em;
     width: 6.84em;
 }
@@ -114,6 +127,23 @@
     letter-spacing: .08em;
     color: #555;
     border: 1px solid #EBECEE;
+}
+
+.user-option{
+    float: left;
+    width: 100%;
+}
+
+.user-option .user-label{
+    float: left;
+    padding-left: 5px;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.user-option .user-label .user-name{
+    font-weight: 500;
+    font-style: normal;
 }
 
 /* Large devices (desktops, 992px and up) */

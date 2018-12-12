@@ -77,6 +77,11 @@ class App extends Component {
     this.props.getSession(user_id);
   }
 
+  onLogoutHandler=()=>{
+    this.props.logout();
+    this.props.loadUsers();
+  }
+
   showOverlay=(users)=>
     <Overlay showHeader={false}>
       <Login onLoginClicked={this.onLoginClickedHandler} users={users}/>
@@ -84,7 +89,16 @@ class App extends Component {
   
 
   render() {
-    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate, isNewDetail, token, users} = this.props;
+    const {locations, 
+            location, 
+            leftSideBarToggle, 
+            rightSideBarToggle, 
+            addressSuggestions, 
+            locationUpdate, 
+            isNewDetail, 
+            token, 
+            users,
+            username} = this.props;
     // Show app page if token is acquired
     return  <div>
               
@@ -93,7 +107,9 @@ class App extends Component {
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
                        locationWidgetClick={this.locationWidgetClickHandler}
-                       onAddClicked={this.onAddClickedHandler} />
+                       onAddClicked={this.onAddClickedHandler}
+                       username={username} 
+                       onLogout={this.onLogoutHandler}/>
               <div className='content'>
                 <Router>
                   <div>   
@@ -127,7 +143,8 @@ const mapStateToProps = state =>{
      location: state.locations.selectedLocation,
      isNewDetail: state.locations.isNewLocation,
      token: state.app.token,
-     users: state.app.users
+     users: state.app.users,
+     username: state.app.username
   }
 }
 
@@ -148,7 +165,8 @@ const mapDispatchToProps = dispatch =>{
     clearAddressSuggestion:()=>dispatch(geoAction.clearAddressSuggestions()),
     initNewLocation:()=>dispatch(initNewLocation()),
     loadUsers:()=>dispatch(appAction.fetchAllUsers()),
-    getSession: (user_id)=>dispatch(appAction.acquireSession(user_id))
+    getSession: (user_id)=>dispatch(appAction.acquireSession(user_id)),
+    logout:()=>dispatch(appAction.userLogout())
   }
 }
 

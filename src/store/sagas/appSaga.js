@@ -27,7 +27,9 @@ function* getSessionAsync(action){
     const session = yield axios.get(url);
 
     (session.data.success)?
-    yield put(appActionCreators.acquireSessionFulfilled(session.data.results.token, session.data.results.user_id)):
+    yield put(appActionCreators.acquireSessionFulfilled(session.data.results.token, 
+                                                        session.data.results.user_id,
+                                                        session.data.results.username)):
     yield put(appActionCreators.acquireSessionFailed())
 }
 

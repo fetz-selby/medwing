@@ -6,14 +6,16 @@ import '../../../assets/styles/layout.css';
 import logo from '../../../assets/icons/medwing.svg';
 import './left-sidebar.css';
 
-const SideBarLogo = () =>{
+const SideBarLogo = (props) =>{
 
     const logo_label = 'medwing';
-    return <ul className='logo-container'>
-                <li className='logo'>
+    return <div className='logo-container'>
+                <div className='logo'>
                      <img src={logo} alt={logo_label}></img>
-                </li>
-            </ul>
+                </div>
+                <div onClick={props.onLogout} className='logout'>logout</div>
+                <div className='clearfix'></div>
+            </div>
 }
 
 const AddLocationButton = (props) =>
@@ -25,7 +27,14 @@ const SearchInput = (props) =>
     <input className='search' placeholder='search saved location' onChange={props.onChange} />
 
 const UserOption = (props) =>
-    <div></div>
+    <div>
+        <div className='user-option'>
+            <div className='user-label'>Welcome 
+                 <span className='user-name'>{props.username?' '+props.username:' User'}</span>!
+            </div>
+        </div>
+        <div className='clearfix'></div>
+    </div>
 
 const SideBarMenuItemContainer = props =>{
 
@@ -46,7 +55,8 @@ const SideBarMenuItemContainer = props =>{
         }
 
         return <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
-            <SideBarLogo />
+            <SideBarLogo onLogout={props.onLogout}/>
+            <UserOption username={props.username} />
             <AddLocationButton onAddClicked={props.onAddClicked}/>
             <SearchInput onChange={props.onSearchChange}/>
             <div className='location-widget-container'>
@@ -60,7 +70,9 @@ SideBarMenuItemContainer.propTypes = {
     showSideBar: PropTypes.bool.isRequired,
     onSearchChange: PropTypes.func.isRequired,
     locations : PropTypes.array.isRequired,
-    onAddClicked: PropTypes.func
+    onAddClicked: PropTypes.func,
+    username: PropTypes.string.isRequired,
+    onLogout: PropTypes.func.isRequired
 }
 
 export default SideBarMenuItemContainer

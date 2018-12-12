@@ -10,7 +10,8 @@ const initial = {
     isLocationUpdate: false,
     token:'',
     users:[],
-    user_id:0
+    user_id:0,
+    username:''
 }
 
 const getTomorrow=()=>
@@ -100,7 +101,7 @@ const reducer = (state = initial, action) => {
 
         case actionTypes.APP_FETCH_ALL_USERS_FULFILLED:{
             const users = action.payload;
-            console.log('U S E R S  ===>  '+users);
+
             return {
                 ...state,
                 users
@@ -118,18 +119,34 @@ const reducer = (state = initial, action) => {
             }
         }
 
+        case actionTypes.APP_USER_LOGOUT:{
+            const token = '';
+            const user_id = '';
+
+            cookies.remove('token');
+            cookies.remove('user_id')
+            return {
+                ...state,
+                token,
+                user_id
+            }
+        }
+
         case actionTypes.APP_ACQUIRE_SESSION_FULFILLED:{
             const user_id = action.payload.user_id;
             const token = action.payload.token;
+            const username = action.payload.username;
 
             //Store in cookies
-            cookies.save('token', token, {expires: getTomorrow()});
-            cookies.save('user_id', user_id, {expires: getTomorrow()});
+            cookies.save('token', token);
+            cookies.save('user_id', user_id);
+            cookies.save('username', username);
 
             return {
                 ...state,
                 user_id,
-                token
+                token,
+                username
             }
         }
         
