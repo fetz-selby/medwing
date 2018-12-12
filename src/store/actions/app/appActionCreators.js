@@ -35,3 +35,34 @@ export const isLocationUpdate = () => (
 export const isNotLocationUpdate = () => (
     {type: actionTypes.APP_LOCATION_NOT_UPDATE}
 )
+
+export const fetchAllUsers = () => (
+    {type: actionTypes.APP_FETCH_ALL_USERS}
+)
+
+export const fetchAllUsersFulfilled = (users) => (
+    {type: actionTypes.APP_FETCH_ALL_USERS_FULFILLED, payload: users}
+)
+
+export const fetchAllUsersFailed = () => (
+    {type: actionTypes.APP_FETCH_ALL_USERS_FAILED}
+)
+
+export const userAlreadyExist = () => (
+    {type: actionTypes.APP_USER_ALREADY_EXIT}
+)
+
+export const acquireSession= (user_id) =>(
+    {type: actionTypes.APP_ACQUIRE_SESSION, payload: user_id}
+)
+
+export const acquireSessionFailed = () =>(
+    {type: actionTypes.APP_ACQUIRE_SESSION_FAILED}
+)
+
+export const acquireSessionFulfilled = (token, user_id) =>(
+    {type: actionTypes.APP_ACQUIRE_SESSION_FULFILLED, payload: {token, user_id}}
+)
+
+
+

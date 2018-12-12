@@ -3,12 +3,19 @@ import * as locationActionCreator from '../actions/locations/locationActionCreat
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
-import {REQUEST_DELAY} from '../../config';
+import {BASE_URL, REQUEST_DELAY} from '../../config';
+import cookies from 'react-cookies';
 
 function* getAllLocationsAsync(){
     yield put(locationActionCreator.fetchLocationLoadingStart());
-    const locations = yield axios.get('/resources/locations.json');
-    yield put(locationActionCreator.fetchLocationFulfilled(locations.data));
+    const userId = cookies.load('user_id');
+    const token = cookies.load('token');
+    const url = BASE_URL + `/medwing/api/v1/locations/${userId}`;
+
+    const locations = yield axios.get(url, {params:{token}});
+
+    locations.data.success ? yield put(locationActionCreator.fetchLocationFulfilled(locations.data)):
+                             yield put();
 }
 
 function* searchLocation(action){

@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import LeftSideBar from './components/sidebar/left';
 import RightSideBar from './components/sidebar/right';
 import LocationContainer from './containers/location/LocationContainer';
+import Overlay from './components/overlay';
+import Login from './components/login';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
@@ -26,7 +28,8 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.props.loadLocations();
+    // this.props.loadLocations();
+    this.props.loadUsers();
   }
 
   initApp = (module, url) => {
@@ -65,15 +68,27 @@ class App extends Component {
   }
 
   onAddClickedHandler=()=>{
-    console.log('Add clicked');
     this.props.isNotLocationUpdate();
     this.props.initNewLocation();
     this.props.showRightSideBar();
   }
 
+  onLoginClickedHandler=(user_id)=>{
+    this.props.getSession(user_id);
+  }
+
+  showOverlay=(users)=>
+    <Overlay showHeader={false}>
+      <Login onLoginClicked={this.onLoginClickedHandler} users={users}/>
+    </Overlay>
+  
+
   render() {
-    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate, isNewDetail} = this.props;
-    return <div>
+    const {locations, location, leftSideBarToggle, rightSideBarToggle, addressSuggestions, locationUpdate, isNewDetail, token, users} = this.props;
+    // Show app page if token is acquired
+    return  <div>
+              
+              {token.length ? '' : this.showOverlay(users)}
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
@@ -98,7 +113,6 @@ class App extends Component {
                       isNewDetail={isNewDetail}
               />
           </div>
-    
   }
 }
 
@@ -111,7 +125,9 @@ const mapStateToProps = state =>{
      addressSuggestions: state.geo.suggestions,
      locationUpdate: state.app.isLocationUpdate,
      location: state.locations.selectedLocation,
-     isNewDetail: state.locations.isNewLocation
+     isNewDetail: state.locations.isNewLocation,
+     token: state.app.token,
+     users: state.app.users
   }
 }
 
@@ -130,7 +146,9 @@ const mapDispatchToProps = dispatch =>{
     isNotLocationUpdate:()=>dispatch(appAction.isNotLocationUpdate()),
     updateCurrentLocation: (location)=>dispatch(updateCurrentLocation(location)),
     clearAddressSuggestion:()=>dispatch(geoAction.clearAddressSuggestions()),
-    initNewLocation:()=>dispatch(initNewLocation())
+    initNewLocation:()=>dispatch(initNewLocation()),
+    loadUsers:()=>dispatch(appAction.fetchAllUsers()),
+    getSession: (user_id)=>dispatch(appAction.acquireSession(user_id))
   }
 }
 

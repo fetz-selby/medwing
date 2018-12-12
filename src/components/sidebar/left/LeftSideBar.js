@@ -24,6 +24,8 @@ const AddLocationButton = (props) =>
 const SearchInput = (props) =>
     <input className='search' placeholder='search saved location' onChange={props.onChange} />
 
+const UserOption = (props) =>
+    <div></div>
 
 const SideBarMenuItemContainer = props =>{
 

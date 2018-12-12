@@ -3,15 +3,15 @@ import * as geoActionCreators from '../actions/geo/geoActionCreators';
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
-import {REQUEST_DELAY} from '../../config';
+import {BASE_URL,REQUEST_DELAY} from '../../config';
+import cookies from 'react-cookies';
 
 function* getAddressSearchAsync(action){
     yield put(geoActionCreators.fetchAddressSearchLoadingStart());
 
-    //Testing purposes
-    const key = 'AIzaSyC53deGuD9TB4tJsbB2h_NtOMzUxANOVZs';
-    const url = 'https://maps.googleapis.com/maps/api/geocode/json';
+    const url = BASE_URL+'/medwing/api/v1/geocoding/search';
     const address = action.payload;
+    const token = cookies.load('token');
 
     if(address.trim().length < 3){
         return;
@@ -19,12 +19,12 @@ function* getAddressSearchAsync(action){
 
     yield delay(REQUEST_DELAY);
 
-    const addresses = yield axios.get(url, {params :{key,address}});
+    const addresses = yield axios.get(url, {params :{token,address}});
 
-    (addresses.data.results.length)?
-    yield put(geoActionCreators.fetchAddressSearchFulfilled(addresses.data.results[0].formatted_address,
-                                                            addresses.data.results[0].geometry.location.lat,
-                                                            addresses.data.results[0].geometry.location.lng)):
+    (addresses.data.success)?
+    yield put(geoActionCreators.fetchAddressSearchFulfilled(addresses.data.results.address,
+                                                            addresses.data.results.lat,
+                                                            addresses.data.results.lng)):
     yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
     
 }
