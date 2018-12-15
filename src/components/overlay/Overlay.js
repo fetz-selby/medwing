@@ -7,7 +7,7 @@ const Overlay = (props)=>
     <div className='overlay-container'>
         <div className='overlay'>
             <div className={props.showHeader?'header':'hide'} >
-                <img className='close' src={cancel} alt='close' />
+                <img onClick={props.onHide} className='close' src={cancel} alt='close' />
             </div>
             <div className='clearfix'></div>
             {props.children}
@@ -16,7 +16,8 @@ const Overlay = (props)=>
 
 
 Overlay.propTypes = {
-    showHeader: PropTypes.bool
+    showHeader: PropTypes.bool,
+    onHide: PropTypes.func
 }
 
 export default Overlay;
