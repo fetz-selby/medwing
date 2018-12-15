@@ -9,7 +9,13 @@ import Login from './components/login';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
-import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation, initNewLocation, pushLocationUpdate} from './store/actions/locations/locationActionCreators';
+import {fetchLocations, 
+        widgetSelectedLocation, 
+        searchLocation, 
+        updateCurrentLocation, 
+        initNewLocation, 
+        pushLocationUpdate,
+        deleteLocation} from './store/actions/locations/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 import Dialog from './components/dialog';
@@ -93,7 +99,6 @@ class App extends Component {
   }
 
   onDeleteClickedHandler=(id, title)=>{
-    console.log('Delete clicked '+title);
     this.props.showDeleteConfirmationDialog(id,title);
   }
 
@@ -112,6 +117,7 @@ class App extends Component {
   
   onDeleteContinueClickedHandler = (id) =>{
     console.log('continue invoked id => '+id);
+    this.props.deleteUserLocation(id);
   }
 
   onDeleteCancelClickHandler = () => {
@@ -191,15 +197,15 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch =>{
   return {
-    setModule : (module) => dispatch(appAction.setModule(module)),
-    showLeftSideBar : () => dispatch(appAction.showLeftSideBar()),
-    hideLeftSideBar : () => dispatch(appAction.hideLeftSideBar()),
-    showRightSideBar : () => dispatch(appAction.showRightSideBar()),
-    hideRightSideBar : () => dispatch(appAction.hideRightSideBar()),
-    loadLocations : () => dispatch(fetchLocations()),
-    selectedLocation : (id) => dispatch(widgetSelectedLocation(id)),
-    searchLocation: (value) => dispatch(searchLocation(value)),
-    fetchAddress: (value) => dispatch(geoAction.fetchAddressSearch(value)),
+    setModule:(module) => dispatch(appAction.setModule(module)),
+    showLeftSideBar:() => dispatch(appAction.showLeftSideBar()),
+    hideLeftSideBar:() => dispatch(appAction.hideLeftSideBar()),
+    showRightSideBar:() => dispatch(appAction.showRightSideBar()),
+    hideRightSideBar:() => dispatch(appAction.hideRightSideBar()),
+    loadLocations:() => dispatch(fetchLocations()),
+    selectedLocation:(id) => dispatch(widgetSelectedLocation(id)),
+    searchLocation:(value) => dispatch(searchLocation(value)),
+    fetchAddress:(value) => dispatch(geoAction.fetchAddressSearch(value)),
     isLocationUpdate:()=>dispatch(appAction.isLocationUpdate()),
     isNotLocationUpdate:()=>dispatch(appAction.isNotLocationUpdate()),
     updateCurrentLocation: (location)=>dispatch(updateCurrentLocation(location)),
@@ -210,7 +216,8 @@ const mapDispatchToProps = dispatch =>{
     logout:()=>dispatch(appAction.userLogout()),
     pushLocationUpdate:(location)=>dispatch(pushLocationUpdate(location)),
     showDeleteConfirmationDialog: (id, title)=>dispatch(appAction.showDeleteConfirmation(id,title)),
-    hideDeleteConfirmationDialog: ()=>dispatch(appAction.hideDeleteConfirmation())
+    hideDeleteConfirmationDialog: ()=>dispatch(appAction.hideDeleteConfirmation()),
+    deleteUserLocation:(id)=>dispatch(deleteLocation(id))
   }
 }
 

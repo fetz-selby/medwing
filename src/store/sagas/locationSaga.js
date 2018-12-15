@@ -1,5 +1,6 @@
-import {FETCH_LOCATIONS, SEARCH_LOCATION, PUSH_LOCATION_UPDATE} from '../actions/locations/locationActionTypes';
+import {FETCH_LOCATIONS, SEARCH_LOCATION, PUSH_LOCATION_UPDATE, DELETE_LOCATION} from '../actions/locations/locationActionTypes';
 import * as locationActionCreator from '../actions/locations/locationActionCreators';
+import {hideDeleteConfirmation} from '../actions/app/appActionCreators';
 import {takeLatest, put, call} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
@@ -19,8 +20,6 @@ function* getAllLocationsAsync(){
 }
 
 function* updateLocationsAsync(action){
-    console.log('Exec there2');
-
     yield put(locationActionCreator.fetchLocationLoadingStart());
     const userId = cookies.load('user_id');
     const token = cookies.load('token');
@@ -30,8 +29,6 @@ function* updateLocationsAsync(action){
     location.token = token;
 
     const url = BASE_URL + `/medwing/api/v1/locations/`;
-
-    console.log('location OBj => '+JSON.stringify(location));
 
     const update = (location.id)?
     yield axios.put(url+location.id, location):
@@ -48,8 +45,26 @@ function* searchLocation(action){
     yield put(locationActionCreator.searchLocationFulfilled(action.payload));
 }
 
+function* deleteLocationAsync(action){
+    yield put(locationActionCreator.fetchLocationLoadingStart());
+    const user_id = cookies.load('user_id');
+    const token = cookies.load('token');
+    const location_id = action.payload;
+
+    const url = BASE_URL + `/medwing/api/v1/locations/${location_id}`;
+    const status = yield axios.delete(url, {params:{user_id, token}});
+
+    if(status.data.success){
+        yield put(hideDeleteConfirmation())
+        yield call(getAllLocationsAsync);
+    }else{
+        yield put(locationActionCreator.deleteLocationFailed());
+    }
+}
+
 export default function* watchLocations(){
     yield takeLatest(FETCH_LOCATIONS, getAllLocationsAsync);
     yield takeLatest(SEARCH_LOCATION, searchLocation);
     yield takeLatest(PUSH_LOCATION_UPDATE, updateLocationsAsync);
+    yield takeLatest(DELETE_LOCATION, deleteLocationAsync);
 }

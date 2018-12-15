@@ -75,3 +75,7 @@ export const showDeleteConfirmation = (id, title) =>(
 export const hideDeleteConfirmation = () =>(
     {type: actionTypes.APP_HIDE_DELETE_CONFIRMATION_DIALOG}
 )
+
+export const fetchUserLocations = (user_id, token) =>(
+    {type: actionTypes.APP_FETCH_USER_LOCATIONS, payload: {user_id, token}}
+)

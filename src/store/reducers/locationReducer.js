@@ -2,20 +2,21 @@ import * as actionTypes from '../actions/locations/locationActionTypes';
 import _ from 'lodash';
 
 const initial = {
-    locations : [ 
-        {id: 1, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
-        {id: 2, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
-        {id: 3, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
-        {id: 4, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975},
-        {id: 5, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
-        {id: 6, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
-        {id: 7, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
-        {id: 8, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975},
-        {id: 9, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
-        {id: 10, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
-        {id: 11, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
-        {id: 12, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975}
-    ],
+    // locations : [ 
+    //     {id: 1, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
+    //     {id: 2, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
+    //     {id: 3, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
+    //     {id: 4, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975},
+    //     {id: 5, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
+    //     {id: 6, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
+    //     {id: 7, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
+    //     {id: 8, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975},
+    //     {id: 9, title: 'House 1', address: 'Heiligenstockweg, 60435 Frankfurt am Main, Germany', lat:50.16295142079499, lng:8.715686156250058},
+    //     {id: 10, title: 'House 2', address: 'Wagrainäcker, 70378 Stuttgart, Germany', lat:48.82869612761667, lng:9.210070921875058},
+    //     {id: 11, title: 'House 3', address: 'Mittlere-Isar-Straße, 85774 München, Germany', lat:48.18087078700962, lng:11.627063109375058},
+    //     {id: 12, title: 'House 4', address: 'Berlin, Germany', lat:52.52000659999999, lng:13.404953999999975}
+    // ],
+    locations:[],
     local_locations: [],
     searchValue: '',
     location_id: 0,

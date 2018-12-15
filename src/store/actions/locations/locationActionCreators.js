@@ -47,3 +47,7 @@ export const pushLocationUpdate = (location) => (
 export const deleteLocation = (id) => (
     {type: actionTypes.DELETE_LOCATION, payload: id}
 )
+
+export const deleteLocationFailed = () => (
+    {type: actionTypes.DELETE_LOCATION_FAILED}
+)
