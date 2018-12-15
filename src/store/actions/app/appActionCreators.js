@@ -67,3 +67,11 @@ export const acquireSessionFulfilled = (token, user_id, username) =>(
 export const userLogout = () =>(
     {type: actionTypes.APP_USER_LOGOUT}
 )
+
+export const showDeleteConfirmation = (id, title) =>(
+    {type: actionTypes.APP_SHOW_DELETE_CONFIRMATION_DIALOG, payload: {id, title}}
+)
+
+export const hideDeleteConfirmation = () =>(
+    {type: actionTypes.APP_HIDE_DELETE_CONFIRMATION_DIALOG}
+)

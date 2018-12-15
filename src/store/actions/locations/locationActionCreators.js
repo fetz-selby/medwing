@@ -35,3 +35,15 @@ export const updateCurrentLocation = (location) => (
 export const initNewLocation = () => (
     {type: actionTypes.INIT_NEW_LOCATION}
 )
+
+export const updateLocationFailed = () => (
+    {type: actionTypes.UPDATE_LOCATION_FAILED}
+)
+
+export const pushLocationUpdate = (location) => (
+    {type: actionTypes.PUSH_LOCATION_UPDATE, payload: location}
+)
+
+export const deleteLocation = (id) => (
+    {type: actionTypes.DELETE_LOCATION, payload: id}
+)

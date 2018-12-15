@@ -25,6 +25,8 @@ const SideBarMenuItemContainer = props =>
                         clearSuggestions={props.clearAddressSuggestion}
                         currentLocationState={props.currentLocationState}
                         isNewDetail={props.isNewDetail}
+                        onUpdate={props.onUpdate}
+                        onDelete={props.onDelete}
                         />
         </nav>
     
@@ -39,7 +41,9 @@ SideBarMenuItemContainer.propTypes = {
     location: PropTypes.object,
     currentLocationState: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    isNewDetail: PropTypes.bool
+    isNewDetail: PropTypes.bool,
+    onUpdate: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default SideBarMenuItemContainer

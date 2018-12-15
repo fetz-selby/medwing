@@ -11,12 +11,12 @@ const initial = {
     token:'',
     users:[],
     user_id:0,
-    username:''
+    username:'',
+    showDeleteConfirmation: false,
+    dialog_location_id: 0,
+    dialog_location_title: '',
+    delete_dialog_message:''
 }
-
-const getTomorrow=()=>
-    new Date().setDate(new Date().getDate() + 1);
-
 
 const reducer = (state = initial, action) => {
     switch(action.type){
@@ -26,6 +26,30 @@ const reducer = (state = initial, action) => {
             return{
                 ...state,
                 logout
+            }
+        }
+
+        case actionTypes.APP_SHOW_DELETE_CONFIRMATION_DIALOG:{
+            const showDeleteConfirmation = true;
+            const dialog_location_id = action.payload.id;
+            const dialog_location_title = action.payload.title;
+            const delete_dialog_message = 'Are you sure you want to delete '+dialog_location_title+'?';
+
+            return{
+                ...state,
+                showDeleteConfirmation,
+                dialog_location_id,
+                dialog_location_title,
+                delete_dialog_message,
+            }
+        }
+
+        case actionTypes.APP_HIDE_DELETE_CONFIRMATION_DIALOG:{
+            const showDeleteConfirmation = false;
+
+            return{
+                ...state,
+                showDeleteConfirmation
             }
         }
 
@@ -111,11 +135,13 @@ const reducer = (state = initial, action) => {
         case actionTypes.APP_USER_ALREADY_EXIT:{
             const token = cookies.load('token');
             const user_id = cookies.load('user_id');
+            const username = cookies.load('username');
 
             return {
                 ...state,
                 token,
-                user_id
+                user_id,
+                username
             }
         }
 
@@ -124,7 +150,9 @@ const reducer = (state = initial, action) => {
             const user_id = '';
 
             cookies.remove('token');
-            cookies.remove('user_id')
+            cookies.remove('user_id');
+            cookies.remove('username');
+
             return {
                 ...state,
                 token,

@@ -21,17 +21,21 @@ const initial = {
     location_id: 0,
     selectedLocation: {},
     isNewLocation: false,
-    isLoading: false
+    isLoading: false,
+    updateError: false
 }
 
 const reducer = (state = initial, action) => {
     switch(action.type){
         case actionTypes.FETCH_LOCATIONS_FULFILLED:{
-            const locations = _.map(state.locations, (location)=>{location.selected=false; return location});
+            const locations = _.map(action.payload, (location)=>{location.selected=false; return location});
             const local_locations = [...locations];
             const searchValue = '';
             const isLoading = false;
             const isNewLocation = true;
+            const updateError = false;
+
+            console.log('locations => '+JSON.stringify(locations));
 
             return{
                 ...state,
@@ -39,12 +43,14 @@ const reducer = (state = initial, action) => {
                 local_locations,
                 locations,
                 isLoading,
-                isNewLocation
+                isNewLocation,
+                updateError
             }
         }
 
         case actionTypes.WIDGET_SELECTED_LOCATION:{
             let selectedLocation = {};
+            const updateError = false;
             const location_id = action.payload;
             const isNewLocation = true;
             const locations = _.map(state.locations, (location)=>{
@@ -64,7 +70,8 @@ const reducer = (state = initial, action) => {
                 isNewLocation,
                 locations,
                 selectedLocation,
-                isLoading
+                isLoading,
+                updateError
             }
         }
 
@@ -78,21 +85,35 @@ const reducer = (state = initial, action) => {
         case actionTypes.INIT_NEW_LOCATION:{
             const selectedLocation = {id:0, title:'', address:'',lat:'',lng:''};
             const isNewLocation = false;
+            const updateError = false;
 
             return {
                 ...state,
                 selectedLocation,
-                isNewLocation
+                isNewLocation,
+                updateError
             }
         }
 
         case actionTypes.UPDATE_CURRENT_LOCATION:{
             const selectedLocation = action.payload;
             const isNewLocation = false;
+            const updateError = false;
+
             return {
                 ...state,
                 isNewLocation,
-                selectedLocation
+                selectedLocation,
+                updateError
+            }
+        }
+
+        case actionTypes.UPDATE_LOCATION_FAILED:{
+            const updateError = true;
+            
+            return {
+                ...state, 
+                updateError
             }
         }
 
