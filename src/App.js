@@ -9,9 +9,10 @@ import Login from './components/login';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
-import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation, initNewLocation} from './store/actions/locations/locationActionCreators';
+import {fetchLocations, widgetSelectedLocation, searchLocation, updateCurrentLocation, initNewLocation, pushLocationUpdate} from './store/actions/locations/locationActionCreators';
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
+import Dialog from './components/dialog';
 
 class App extends Component {
 
@@ -82,11 +83,41 @@ class App extends Component {
     this.props.loadUsers();
   }
 
-  showOverlay=(users)=>
+  hideDeleteDialogHandler=()=>{
+    this.props.hideDeleteConfirmationDialog();
+  }
+
+  onUpdateClickedHandler=(detail)=>{
+    console.log('Detail => '+JSON.stringify(detail));
+    this.props.pushLocationUpdate(detail);
+  }
+
+  onDeleteClickedHandler=(id, title)=>{
+    console.log('Delete clicked '+title);
+    this.props.showDeleteConfirmationDialog(id,title);
+  }
+
+  showLoginOverlay=(users)=>
     <Overlay showHeader={false}>
       <Login onLoginClicked={this.onLoginClickedHandler} users={users}/>
     </Overlay>
+
+  showConfirmOverlay=(message, id)=>
+    <Overlay showHeader={true} onHide={this.hideDeleteDialogHandler}>
+       <Dialog id={id} 
+               message={message}
+               onContinue={this.onDeleteContinueClickedHandler}
+               onCancel={this.onDeleteCancelClickHandler}/>
+    </Overlay>
   
+  onDeleteContinueClickedHandler = (id) =>{
+    console.log('continue invoked id => '+id);
+  }
+
+  onDeleteCancelClickHandler = () => {
+    console.log('cancel invoked id => ');
+    this.props.hideDeleteConfirmationDialog();
+  }
 
   render() {
     const {locations, 
@@ -98,11 +129,15 @@ class App extends Component {
             isNewDetail, 
             token, 
             users,
-            username} = this.props;
+            username,
+            showDeleteConfirmation,
+            dialog_location_id,
+            delete_dialog_message} = this.props;
+            console.log('showDeleteConfirmation => '+showDeleteConfirmation);
     // Show app page if token is acquired
     return  <div>
-              
-              {token.length ? '' : this.showOverlay(users)}
+              {showDeleteConfirmation ? this.showConfirmOverlay(delete_dialog_message, dialog_location_id):''}
+              {token.length ? '' : this.showLoginOverlay(users)}
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
@@ -127,6 +162,8 @@ class App extends Component {
                       currentLocationState={this.currentLocationState}
                       onClose={this.onCloseRightSideBar}
                       isNewDetail={isNewDetail}
+                      onUpdate={this.onUpdateClickedHandler}
+                      onDelete={this.onDeleteClickedHandler}
               />
           </div>
   }
@@ -144,7 +181,11 @@ const mapStateToProps = state =>{
      isNewDetail: state.locations.isNewLocation,
      token: state.app.token,
      users: state.app.users,
-     username: state.app.username
+     username: state.app.username,
+     showDeleteConfirmation: state.app.showDeleteConfirmation,
+     dialog_location_id: state.app.dialog_location_id,
+     dialog_location_title: state.app.dialog_location_title,
+     delete_dialog_message: state.app.delete_dialog_message
   }
 }
 
@@ -166,7 +207,10 @@ const mapDispatchToProps = dispatch =>{
     initNewLocation:()=>dispatch(initNewLocation()),
     loadUsers:()=>dispatch(appAction.fetchAllUsers()),
     getSession: (user_id)=>dispatch(appAction.acquireSession(user_id)),
-    logout:()=>dispatch(appAction.userLogout())
+    logout:()=>dispatch(appAction.userLogout()),
+    pushLocationUpdate:(location)=>dispatch(pushLocationUpdate(location)),
+    showDeleteConfirmationDialog: (id, title)=>dispatch(appAction.showDeleteConfirmation(id,title)),
+    hideDeleteConfirmationDialog: ()=>dispatch(appAction.hideDeleteConfirmation())
   }
 }
 
