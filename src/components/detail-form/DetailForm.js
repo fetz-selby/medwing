@@ -91,6 +91,7 @@ class DetailForm extends Component {
     }
 
     getDetails=()=>{
+        console.log('Title => '+this.state.title);
         return {address: this.state.suggested,
                 lat: this.state.lat,
                 lng: this.state.lng,
@@ -121,8 +122,9 @@ class DetailForm extends Component {
         this.showError(false);
 
         //Send the details specifying if new or update
-        (this.state.id)?this.props.onUpdate(this.getDetails(), true)
-        :this.props.onUpdate(this.getDetails(), false);
+        (this.state.id)?
+        this.props.onUpdate(this.getDetails(), true):
+        this.props.onUpdate(this.getDetails(), false);
     }
 
     getSuggestionValue = suggestion => {this.selectedSuggestion = {...suggestion}; return suggestion.address};
@@ -186,7 +188,7 @@ class DetailForm extends Component {
 
             <div className='clearfix'></div>
             <div className='row'>
-                <div className={isUpdate?'delete-btn':'delete-btn light-hide'}>Delete</div>
+                <div onClick={()=>this.props.onDelete(this.state.id, this.state.title)} className={isUpdate?'delete-btn':'delete-btn light-hide'}>Delete</div>
                 {this.hasChanged?<button onClick={this.onUpdateHandler} className='save-btn'>{isUpdate ? 'Update':'Save'}</button>:''}
             </div>
         </div>
@@ -201,7 +203,8 @@ DetailForm.propTypes = {
     fetchSuggestions: PropTypes.func,
     currentLocationState: PropTypes.func.isRequired,
     onUpdate: PropTypes.func,
-    isNewDetail: PropTypes.bool
+    isNewDetail: PropTypes.bool,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default DetailForm;
