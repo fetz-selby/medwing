@@ -1,6 +1,6 @@
 import {FETCH_LOCATIONS, SEARCH_LOCATION, PUSH_LOCATION_UPDATE, DELETE_LOCATION} from '../actions/locations/locationActionTypes';
 import * as locationActionCreator from '../actions/locations/locationActionCreators';
-import {hideDeleteConfirmation} from '../actions/app/appActionCreators';
+import {initPage} from '../actions/app/appActionCreators';
 import {takeLatest, put, call} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
@@ -55,7 +55,7 @@ function* deleteLocationAsync(action){
     const status = yield axios.delete(url, {params:{user_id, token}});
 
     if(status.data.success){
-        yield put(hideDeleteConfirmation())
+        yield put(initPage());
         yield call(getAllLocationsAsync);
     }else{
         yield put(locationActionCreator.deleteLocationFailed());
