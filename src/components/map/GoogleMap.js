@@ -16,12 +16,8 @@ class GoogleMap extends Component {
                     id={location.id}
                     location={location.address}
                     selected={location.selected} 
-                    click={this.onMarkerClickedHandler}/>
+                    click={this.props.onLocationMarkerClicked}/>
         )
-    
-    onMarkerClickedHandler = (id) =>{
-        console.log('id => '+id)
-    }
 
     render() {
 
@@ -39,7 +35,8 @@ class GoogleMap extends Component {
 }
 
 GoogleMap.propTypes = {
-    locations: PropTypes.array.isRequired
+    locations: PropTypes.array.isRequired,
+    onLocationMarkerClicked: PropTypes.func
 }
 
 export default GoogleMap;

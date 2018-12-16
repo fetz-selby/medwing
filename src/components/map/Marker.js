@@ -6,7 +6,7 @@ import './google-map.css';
 
 
 const Marker = (props) => 
-    <div onClick={()=>props.click(props.id)}>
+    <div className='marker-container' onClick={()=>props.click(props.id)}>
         <img src={props.selected?selected_icon:marker_icon} alt={props.lat+', '+props.lng} className='marker' />
     </div>
 
