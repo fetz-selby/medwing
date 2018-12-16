@@ -79,3 +79,7 @@ export const hideDeleteConfirmation = () =>(
 export const fetchUserLocations = (user_id, token) =>(
     {type: actionTypes.APP_FETCH_USER_LOCATIONS, payload: {user_id, token}}
 )
+
+export const initPage = () =>(
+    {type: actionTypes.APP_INIT_PAGE}
+)
