@@ -177,6 +177,17 @@ const reducer = (state = initial, action) => {
                 username
             }
         }
+
+        case actionTypes.APP_INIT_PAGE:{
+            const showDeleteConfirmation = false;
+            const rightSideBarToggle = false;
+
+            return{
+                ...state,
+                showDeleteConfirmation,
+                rightSideBarToggle
+            }
+        }
         
         default:{
             return{
