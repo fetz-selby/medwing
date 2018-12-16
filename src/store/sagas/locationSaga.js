@@ -34,9 +34,12 @@ function* updateLocationsAsync(action){
     yield axios.put(url+location.id, location):
     yield axios.post(url, location);
 
-    (update.data.success)?
-    yield call(getAllLocationsAsync):
-    locationActionCreator.updateLocationFailed()
+    if(update.data.success){
+        yield put(initPage());
+        yield call(getAllLocationsAsync);
+    }else{
+        locationActionCreator.updateLocationFailed();
+    }
 }
 
 function* searchLocation(action){
