@@ -3,7 +3,11 @@
     height: 100%;
 }
 
-.map .marker{
+.marker-container{
+    margin-top: -24px;
+}
+
+.marker-container .marker{
     width: 24px;
     height: 24px;
 }
