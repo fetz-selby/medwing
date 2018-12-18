@@ -10,7 +10,7 @@ class DetailForm extends Component {
         }
 
     componentWillMount() {
-        if (this.props.location) this.setDefaultState(this.props.location);
+        if(this.props.location) this.setDefaultState(this.props.location);
     }
 
     // When the component is loaded again.
@@ -21,7 +21,7 @@ class DetailForm extends Component {
     setDefaultState(location) {
 
         // Set state using data.
-        this.hasChanged = this.props.isNewDetail?false:true;
+        this.hasChanged = this.props.isNewDetail ? false : true;
 
         this.setState({
             id: location.id,
@@ -36,9 +36,9 @@ class DetailForm extends Component {
         this.errorMsg = 'No Message';
     }
 
-    titleChangeHandler=(evt, newValue)=>{
+    titleChangeHandler=(evt)=>{
         this.setState({
-            title: newValue
+            title: evt.target.value
         });
 
         this.hasChanged = true;
@@ -75,8 +75,8 @@ class DetailForm extends Component {
     }
 
     updateCurrentLocationWithState=(value)=>{
-        this.props.currentLocationState({lat:0,
-                                        lng:0,
+        this.props.currentLocationState({lat:'',
+                                        lng:'',
                                         address: value,
                                         title: this.state.title,
                                         id: this.state.id});
@@ -91,7 +91,6 @@ class DetailForm extends Component {
     }
 
     getDetails=()=>{
-        console.log('Title => '+this.state.title);
         return {address: this.state.suggested,
                 lat: this.state.lat,
                 lng: this.state.lng,

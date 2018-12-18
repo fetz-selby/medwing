@@ -11,6 +11,10 @@
     letter-spacing: 1px;
 }
 
+.dialog-container .message-container .message{
+   outline: none;
+}
+
 .dialog-container .action-container{
     float: left;
     width: 100%;

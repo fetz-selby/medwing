@@ -34,8 +34,8 @@ InfoWidget.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
+    lat: PropTypes.string.isRequired,
+    lng: PropTypes.string.isRequired,
     click: PropTypes.func
 }
 

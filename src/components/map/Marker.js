@@ -11,8 +11,8 @@ const Marker = (props) =>
     </div>
 
 Marker.propTypes = {
-    lat: PropTypes.number,
-    lng: PropTypes.number,
+    lat: PropTypes.string,
+    lng: PropTypes.string,
     id: PropTypes.number,
     selected: PropTypes.bool,
     click: PropTypes.func

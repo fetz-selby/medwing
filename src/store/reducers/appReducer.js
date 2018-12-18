@@ -15,7 +15,8 @@ const initial = {
     showDeleteConfirmation: false,
     dialog_location_id: 0,
     dialog_location_title: '',
-    delete_dialog_message:''
+    delete_dialog_message:'',
+    keys:''
 }
 
 const reducer = (state = initial, action) => {
@@ -136,12 +137,14 @@ const reducer = (state = initial, action) => {
             const token = cookies.load('token');
             const user_id = cookies.load('user_id');
             const username = cookies.load('username');
+            const keys = cookies.load('keys');
 
             return {
                 ...state,
                 token,
                 user_id,
-                username
+                username,
+                keys
             }
         }
 
@@ -152,6 +155,7 @@ const reducer = (state = initial, action) => {
             cookies.remove('token');
             cookies.remove('user_id');
             cookies.remove('username');
+            cookies.remove('keys')
 
             return {
                 ...state,
@@ -164,17 +168,20 @@ const reducer = (state = initial, action) => {
             const user_id = action.payload.user_id;
             const token = action.payload.token;
             const username = action.payload.username;
+            const keys = action.payload.keys;
 
             //Store in cookies
             cookies.save('token', token);
             cookies.save('user_id', user_id);
             cookies.save('username', username);
+            cookies.save('keys', keys);
 
             return {
                 ...state,
                 user_id,
                 token,
-                username
+                username,
+                keys
             }
         }
 

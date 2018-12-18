@@ -30,10 +30,10 @@ function* getSessionAsync(action){
     const session = yield axios.get(url);
 
     if(session.data.success){
-        const {user_id, token, username} = session.data.results;
+        const {user_id, token, username, keys} = session.data.results;
 
         yield put(appActionCreators.fetchUserLocations(user_id, token))
-        yield put(appActionCreators.acquireSessionFulfilled(token, user_id, username))
+        yield put(appActionCreators.acquireSessionFulfilled(token, user_id, username, keys))
     }else{
         yield put(appActionCreators.acquireSessionFailed())
     }

@@ -5,7 +5,7 @@ import './dialog.css';
 const Dialog = (props)=>
     <div className='dialog-container'>
         <div className='message-container'>
-            <div>{props.message}</div>
+            <div className='message'>{props.message}</div>
         </div>
         <div className='action-container'>
             <div className='btn-link' onClick={props.onCancel}>cancel</div>

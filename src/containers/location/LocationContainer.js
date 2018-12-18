@@ -2,25 +2,23 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as locationActions from '../../store/actions/locations/locationActionCreators';
 import * as appActions from '../../store/actions/app/appActionCreators';
-
-
 import GoogleMap from '../../components/map';
 import './location.css';
 
 class LocationContainer extends Component {
 
     onLocationMarkerClickedHandler=(id)=>{
-        console.log('id => '+id);
         this.props.markerSelected(id);
         this.props.isLocationUpdate();
         this.props.showRightSideBar();
     }
 
     render() {
-        const {locations} = this.props;
+        const {locations, keys} = this.props;
         return <div className='map-container'>
                 <GoogleMap onLocationMarkerClicked={this.onLocationMarkerClickedHandler} 
-                           locations={locations}/>
+                           locations={locations}
+                           keys={keys}/>
             </div>
     }
 }
@@ -28,7 +26,8 @@ class LocationContainer extends Component {
 const mapStateToProps = state =>{
     return {
         isLoading: state.locations.sLoading,
-        locations: state.locations.locations
+        locations: state.locations.locations,
+        keys: state.app.keys
     }
 }
 
@@ -38,7 +37,7 @@ const mapDispatchToProps = dispatch =>{
         searchLocation : (val) => dispatch(locationActions.searchLocation(val)),
         markerSelected : (id)=>dispatch(locationActions.widgetSelectedLocation(id)),
         showRightSideBar:() => dispatch(appActions.showRightSideBar()),
-        isLocationUpdate:()=>dispatch(appActions.isLocationUpdate()),
+        isLocationUpdate:()=>dispatch(appActions.isLocationUpdate())
     }
 }
 

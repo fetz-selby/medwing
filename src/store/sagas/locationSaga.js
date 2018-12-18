@@ -21,11 +21,11 @@ function* getAllLocationsAsync(){
 
 function* updateLocationsAsync(action){
     yield put(locationActionCreator.fetchLocationLoadingStart());
-    const userId = cookies.load('user_id');
+    const user_id = cookies.load('user_id');
     const token = cookies.load('token');
 
     const location = {...action.payload};
-    location.user_id = userId;
+    location.user_id = user_id;
     location.token = token;
 
     const url = BASE_URL + `/medwing/api/v1/locations/`;

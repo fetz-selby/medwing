@@ -36,7 +36,8 @@ class GoogleMap extends Component {
 
 GoogleMap.propTypes = {
     locations: PropTypes.array.isRequired,
-    onLocationMarkerClicked: PropTypes.func
+    onLocationMarkerClicked: PropTypes.func,
+    keys: PropTypes.string.isRequired
 }
 
 export default GoogleMap;

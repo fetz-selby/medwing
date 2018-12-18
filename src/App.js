@@ -94,7 +94,6 @@ class App extends Component {
   }
 
   onUpdateClickedHandler=(detail)=>{
-    console.log('Detail => '+JSON.stringify(detail));
     this.props.pushLocationUpdate(detail);
   }
 
@@ -139,7 +138,6 @@ class App extends Component {
             showDeleteConfirmation,
             dialog_location_id,
             delete_dialog_message} = this.props;
-            console.log('showDeleteConfirmation => '+showDeleteConfirmation);
     // Show app page if token is acquired
     return  <div>
               {showDeleteConfirmation ? this.showConfirmOverlay(delete_dialog_message, dialog_location_id):''}
