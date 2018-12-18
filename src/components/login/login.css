@@ -24,6 +24,7 @@
 .login-widget-container .avatar-container .avatar{
     width: 64px;
     margin-top: 12px;
+    border-radius: 50%;
 }
 
 .login-widget-container .info-container{

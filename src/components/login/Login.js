@@ -7,8 +7,8 @@ const LoginWidget = (props)=>
     <div className='login' onClick={()=>props.onLoginClicked(props.id)}>
         <div className='login-widget-container'>
             <div className='avatar-container'>
-                {/* <img src={props.avatar} alt={props.name}/> */}
-                <img className='avatar' src={icon} alt={props.name}/>
+                <img className='avatar' src={props.avatar} alt={props.name}/>
+                {/* <img className='avatar' src={icon} alt={props.name}/> */}
             </div>
             <div className='info-container'>
                 <div className='info'>{props.name}</div>

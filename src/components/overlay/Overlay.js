@@ -14,10 +14,9 @@ const Overlay = (props)=>
         </div>
     </div>
 
-
 Overlay.propTypes = {
     showHeader: PropTypes.bool,
     onHide: PropTypes.func
-}
+}    
 
 export default Overlay;

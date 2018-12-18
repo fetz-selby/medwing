@@ -55,16 +55,15 @@ const SideBarMenuItemContainer = props =>{
         }
 
         return <nav className={props.showSideBar ? 'show sidebar-container sidebar' : 'sidebar-container sidebar'}>
-            <SideBarLogo onLogout={props.onLogout}/>
-            <UserOption username={props.username} />
-            <AddLocationButton onAddClicked={props.onAddClicked}/>
-            <SearchInput onChange={props.onSearchChange}/>
-            <div className='location-widget-container'>
-                {props.locations.length ? renderWidgets(props.locations): renderEmpty()}
-            </div>
-        </nav>
+                <SideBarLogo onLogout={props.onLogout}/>
+                <UserOption username={props.username} />
+                <AddLocationButton onAddClicked={props.onAddClicked}/>
+                <SearchInput onChange={props.onSearchChange}/>
+                <div className='location-widget-container'>
+                    {props.locations.length ? renderWidgets(props.locations): renderEmpty()}
+                </div>
+            </nav>
 }
-
 
 SideBarMenuItemContainer.propTypes = {
     showSideBar: PropTypes.bool.isRequired,
@@ -76,4 +75,3 @@ SideBarMenuItemContainer.propTypes = {
 }
 
 export default SideBarMenuItemContainer
-

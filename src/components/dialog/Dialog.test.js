@@ -13,7 +13,7 @@ describe('Dialog Component', ()=>{
     it('should send [id] when continue is clicked', ()=>{
         const message = 'show this';
         const id = 1;
-        const onContinue = jest.fn;
+        const onContinue = jest.fn();
 
         const props = {
             message,

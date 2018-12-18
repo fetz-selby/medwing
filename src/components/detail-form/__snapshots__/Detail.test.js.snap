@@ -15,8 +15,8 @@ ShallowWrapper {
         "title": "test 1",
       }
     }
-    onDelete={[Function]}
-    onUpdate={[Function]}
+    onDelete={[MockFunction]}
+    onUpdate={[MockFunction]}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

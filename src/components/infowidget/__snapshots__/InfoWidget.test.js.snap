@@ -5,6 +5,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InfoWidget
     address="No.1 Morton loop"
+    id={1}
     lat="51.165691"
     lng="10.451526000000058"
     title="home"

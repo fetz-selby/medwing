@@ -6,7 +6,7 @@ describe('Detail Form Component', ()=>{
     it('should render [SAVE] on button', ()=>{
         const location = {id: 0, title:'', address: '', lat: '', lng: ''};
         const currentLocationState = jest.fn;
-        const onDelete = jest.fn;
+        const onDelete = jest.fn();
 
         const props ={
             location,
@@ -35,11 +35,11 @@ describe('Detail Form Component', ()=>{
         expect(df.find('.save-btn').text()).toBe('Update');
     })
 
-    it('should expect props.onUpdate on update clicked', ()=>{
+    it('should expect props.onUpdate to have updated location value', ()=>{
         const location = {id: 1, title:'test 1', address: 'street 12', lat: '51.165691', lng: '10.451526000000058'};
         const currentLocationState = jest.fn;
-        const onDelete = jest.fn;
-        const onUpdate = jest.fn;
+        const onDelete = jest.fn();
+        const onUpdate = jest.fn();
 
         const props ={
             isUpdate: true,
@@ -51,14 +51,14 @@ describe('Detail Form Component', ()=>{
 
         const df = shallow(<DetailForm {...props}/>);
         df.find('.save-btn').simulate('click');
-        expect(onUpdate).toHaveBeenCalled();
+        expect(onUpdate).toHaveBeenCalledWith(location, true);
     })
 
     it('should render correctly', ()=>{
         const location = {id: 1, title:'test 1', address: 'street 12', lat: '51.165691', lng: '10.451526000000058'};
         const currentLocationState = jest.fn;
-        const onDelete = jest.fn;
-        const onUpdate = jest.fn;
+        const onDelete = jest.fn();
+        const onUpdate = jest.fn();
 
         const props ={
             isUpdate: true,

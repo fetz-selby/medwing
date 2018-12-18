@@ -23,13 +23,38 @@ describe('InfoWidget Component', ()=>{
         expect(infoWidget.find('.lng').text()).toBe(lng);
     })
 
+    it('should send [id] when clicked', ()=>{
+        const id = 3;
+        const title = 'home';
+        const address = 'No.1 Morton loop';
+        const lat = '51.165691';
+        const lng = '10.451526000000058';
+
+        const click = jest.fn();
+
+        const props ={
+            id,
+            title,
+            address,
+            lat,
+            lng,
+            click
+        }
+
+        const infoWidget = shallow(<InfoWidget {...props}/>);
+        infoWidget.find('.info-widget-container').simulate('click');
+        expect(click).toHaveBeenCalledWith(id);
+    })
+
     it('should render correctly', ()=>{
+        const id = 1;
         const title = 'home';
         const address = 'No.1 Morton loop';
         const lat = '51.165691';
         const lng = '10.451526000000058';
 
         const props ={
+            id,
             title,
             address,
             lat,

@@ -52,18 +52,14 @@ class DetailForm extends Component {
         this.hasChanged = true;
         this.props.fetchSuggestions(newValue);
         this.updateCurrentLocationWithState(newValue);
+
+        console.log('[onSuggestChange]')
     }
 
     onSuggestionSelected = () =>{
-        this.setState({
-            lat: this.selectedSuggestion.lat,
-            lng: this.selectedSuggestion.lng,
-            address: this.selectedSuggestion.address,
-            suggested: this.selectedSuggestion.address
-        })
-
         this.updateCurrentLocationWithSuggest();
         this.showError(false);
+        console.log('[onSuggestionSelected]')
     }
 
     updateCurrentLocationWithSuggest=()=>{
@@ -132,7 +128,7 @@ class DetailForm extends Component {
         <div>
             {suggestion.address}
         </div>
-    );
+    )
 
     render(){
         const {suggested, showError} = this.state;
@@ -175,14 +171,14 @@ class DetailForm extends Component {
             <div className='row'>
                 <div className='label'>Latitude</div>
                 <div className='clearfix'></div>
-                <input type='text' className='inputs' disabled={true} value={this.state.lat}/>
+                <input type='text' className='inputs' disabled={true} value={this.state.lat} />
             </div>
             <div className='clearfix'></div>
 
             <div className='row'>
                 <div className='label'>Longitude</div>
                 <div className='clearfix'></div>
-                <input type='text' className='inputs' disabled={true} value={this.state.lng}/>
+                <input type='text' className='inputs' disabled={true} value={this.state.lng} />
             </div>
 
             <div className='clearfix'></div>

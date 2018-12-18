@@ -87,6 +87,7 @@ class App extends Component {
   onLogoutHandler=()=>{
     this.props.logout();
     this.props.loadUsers();
+    this.props.hideRightSideBar();
   }
 
   hideDeleteDialogHandler=()=>{
@@ -115,12 +116,10 @@ class App extends Component {
     </Overlay>
   
   onDeleteContinueClickedHandler = (id) =>{
-    console.log('continue invoked id => '+id);
     this.props.deleteUserLocation(id);
   }
 
   onDeleteCancelClickHandler = () => {
-    console.log('cancel invoked id => ');
     this.props.hideDeleteConfirmationDialog();
   }
 

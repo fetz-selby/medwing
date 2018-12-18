@@ -22,15 +22,15 @@ class GoogleMap extends Component {
     render() {
 
         return <div className='map' >
-                <GMap 
-                    bootstrapURLKeys={{key: MAP_KEYS}}
-                    defaultCenter={DEFAULT_MAP_CENTER}
-                    defaultZoom={DEFAULT_MAP_ZOOM}
-                >
+                    <GMap 
+                        bootstrapURLKeys={{key: MAP_KEYS}}
+                        defaultCenter={DEFAULT_MAP_CENTER}
+                        defaultZoom={DEFAULT_MAP_ZOOM}
+                    >
 
-                {this.loadMarkers(this.props.locations)}
-                </GMap>
-            </div>
+                    {this.loadMarkers(this.props.locations)}
+                    </GMap>
+                </div>
     }
 }
 
