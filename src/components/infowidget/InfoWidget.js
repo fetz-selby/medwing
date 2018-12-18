@@ -21,8 +21,8 @@ const InfoWidget = (props) =>
             <div className='clearfix'></div>
 
             <div className='row'>
-                <div className='points'>{props.lat}</div>
-                <div className='points'>{props.lng}</div>
+                <div className='points lat'>{props.lat}</div>
+                <div className='points lng'>{props.lng}</div>
             </div>
         </div>
         <div className='action'>

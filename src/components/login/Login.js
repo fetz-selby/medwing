@@ -32,7 +32,8 @@ const Login = (props) =>
 
 Login.propTypes = {
     showHeader: PropTypes.bool,
-    onLoginClicked: PropTypes.func
+    onLoginClicked: PropTypes.func,
+    users: PropTypes.array
 }
 
 export default Login;
