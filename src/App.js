@@ -7,7 +7,6 @@ import LocationContainer from './containers/location/LocationContainer';
 import Overlay from './components/overlay';
 import Login from './components/login';
 import LocationInfo from './components/location-info';
-import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
 import {fetchLocations, 
@@ -24,26 +23,8 @@ import ErrorInfo from './components/error';
 
 class App extends Component {
 
-  menuEventHandler = (val) => {
-    switch(val){
-      case appRoute.MY_LOCATIONS.module:{
-        this.initApp(appRoute.MY_LOCATIONS.module, appRoute.MY_LOCATIONS.path);
-        break;
-      }
-      default:{
-
-      }
-    }
-  }
-
   componentDidMount(){
-    // this.props.loadLocations();
     this.props.loadUsers();
-  }
-
-  initApp = (module, url) => {
-    this.props.setModule(module);
-    this.props.hideSideBar();
   }
 
   sideBarToggleClickedHandler = () => {
