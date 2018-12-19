@@ -19,6 +19,7 @@ import {fetchLocations,
 import './assets/styles/layout.css';
 import './assets/styles/reset.css';
 import Dialog from './components/dialog';
+import ErrorInfo from './components/error';
 
 class App extends Component {
 
@@ -114,6 +115,15 @@ class App extends Component {
                onContinue={this.onDeleteContinueClickedHandler}
                onCancel={this.onDeleteCancelClickHandler}/>
     </Overlay>
+
+  onErrorCancel=()=>
+    this.props.hideNetworkError()
+
+  showNetworkErrorOverlay = (message) =>
+    <Overlay>
+      <ErrorInfo message={message}
+                 onCancel={this.onErrorCancel}></ErrorInfo>
+    </Overlay>
   
   onDeleteContinueClickedHandler = (id) =>{
     this.props.deleteUserLocation(id);
@@ -136,11 +146,14 @@ class App extends Component {
             username,
             showDeleteConfirmation,
             dialog_location_id,
-            delete_dialog_message} = this.props;
+            delete_dialog_message,
+            networkError,
+            networkErrorMessage} = this.props;
     // Show app page if token is acquired
     return  <div>
               {showDeleteConfirmation ? this.showConfirmOverlay(delete_dialog_message, dialog_location_id):''}
               {token.length ? '' : this.showLoginOverlay(users)}
+              {networkError ? this.showNetworkErrorOverlay(networkErrorMessage) : ''}
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
@@ -188,7 +201,9 @@ const mapStateToProps = state =>{
      showDeleteConfirmation: state.app.showDeleteConfirmation,
      dialog_location_id: state.app.dialog_location_id,
      dialog_location_title: state.app.dialog_location_title,
-     delete_dialog_message: state.app.delete_dialog_message
+     delete_dialog_message: state.app.delete_dialog_message,
+     networkError: state.app.networkError,
+     networkErrorMessage: state.app.networkErrorMessage
   }
 }
 
@@ -214,7 +229,8 @@ const mapDispatchToProps = dispatch =>{
     pushLocationUpdate:(location)=>dispatch(pushLocationUpdate(location)),
     showDeleteConfirmationDialog: (id, title)=>dispatch(appAction.showDeleteConfirmation(id,title)),
     hideDeleteConfirmationDialog: ()=>dispatch(appAction.hideDeleteConfirmation()),
-    deleteUserLocation:(id)=>dispatch(deleteLocation(id))
+    deleteUserLocation:(id)=>dispatch(deleteLocation(id)),
+    hideNetworkError: ()=>dispatch(appAction.closeNetworkError())
   }
 }
 
