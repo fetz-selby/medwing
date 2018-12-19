@@ -1,5 +1,7 @@
 import {ADDRESS_SEARCH} from '../actions/geo/geoActionTypes';
 import * as geoActionCreators from '../actions/geo/geoActionCreators';
+import * as appActionCreators from '../actions/app/appActionCreators';
+
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import axios from 'axios';
@@ -19,13 +21,17 @@ function* getAddressSearchAsync(action){
 
     yield delay(REQUEST_DELAY);
 
-    const addresses = yield axios.get(url, {params :{token,address}});
+    try{
+        const addresses = yield axios.get(url, {params :{token,address}});
 
-    (addresses.data.success)?
-    yield put(geoActionCreators.fetchAddressSearchFulfilled(addresses.data.results.address,
-                                                            addresses.data.results.lat,
-                                                            addresses.data.results.lng)):
-    yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
+        (addresses.data.success)?
+        yield put(geoActionCreators.fetchAddressSearchFulfilled(addresses.data.results.address,
+                                                                addresses.data.results.lat,
+                                                                addresses.data.results.lng)):
+        yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
+    }catch(error){
+        yield put(appActionCreators.networkError('sorry, could not retrieve location due to network'));
+    }
     
 }
 

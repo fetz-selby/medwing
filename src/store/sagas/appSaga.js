@@ -15,11 +15,14 @@ function* getUsersAsync(){
     }
 
     const url = BASE_URL+'/medwing/api/users';
-    const users = yield axios.get(url);
-
-    (users.data.success)?
-    yield put(appActionCreators.fetchAllUsersFulfilled(users.data.results)):
-    yield put(appActionCreators.fetchAllUsersFailed());
+    try{
+        const users = yield axios.get(url);
+        (users.data.success)?
+        yield put(appActionCreators.fetchAllUsersFulfilled(users.data.results)):
+        yield put(appActionCreators.fetchAllUsersFailed('sorry, could not retrieve users'));
+    }catch(error){
+        yield put(appActionCreators.fetchAllUsersFailed('sorry, could not retrieve users due to network'));
+    }   
 }
 
 function* getSessionAsync(action){
@@ -35,7 +38,7 @@ function* getSessionAsync(action){
         yield put(appActionCreators.fetchUserLocations(user_id, token))
         yield put(appActionCreators.acquireSessionFulfilled(token, user_id, username, keys))
     }else{
-        yield put(appActionCreators.acquireSessionFailed())
+        yield put(appActionCreators.networkError('could not retreive user session'))
     }
 }
 
@@ -45,10 +48,14 @@ function* getUserLocationsAsync(action){
     const token = action.payload.token
     const url = BASE_URL+`/medwing/api/v1/locations/`;
 
-    const locations = yield axios.get(url, {params:{user_id,token}});
-    (locations.data.success)?
-    yield put(fetchLocationFulfilled(locations.data.results)):
-    yield put();
+    try{
+        const locations = yield axios.get(url, {params:{user_id,token}});
+        (locations.data.success)?
+        yield put(fetchLocationFulfilled(locations.data.results)):
+        yield put();
+    }catch(error){
+        yield put(appActionCreators.networkError('could not load user locations'));
+    }
 }
 
 export default function* watchApp(){
