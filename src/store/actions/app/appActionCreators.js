@@ -44,8 +44,8 @@ export const fetchAllUsersFulfilled = (users) => (
     {type: actionTypes.APP_FETCH_ALL_USERS_FULFILLED, payload: users}
 )
 
-export const fetchAllUsersFailed = () => (
-    {type: actionTypes.APP_FETCH_ALL_USERS_FAILED}
+export const fetchAllUsersFailed = (message) => (
+    {type: actionTypes.APP_FETCH_ALL_USERS_FAILED, payload: message}
 )
 
 export const userAlreadyExist = () => (
@@ -56,8 +56,12 @@ export const acquireSession= (user_id) =>(
     {type: actionTypes.APP_ACQUIRE_SESSION, payload: user_id}
 )
 
-export const acquireSessionFailed = () =>(
-    {type: actionTypes.APP_ACQUIRE_SESSION_FAILED}
+export const networkError = (message) =>(
+    {type: actionTypes.APP_NETWORK_ERROR, payload: message}
+)
+
+export const closeNetworkError = () =>(
+    {type: actionTypes.APP_CLOSE_NETWORK_ERROR}
 )
 
 export const acquireSessionFulfilled = (token, user_id, username, keys) =>(
