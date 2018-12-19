@@ -2,11 +2,11 @@
 This is a Geocoding implementation of Maps(Basically, a mini form of google maps). Features of the application include searching, creating, viewing and deleting of geo coding points. Supported viewport are desktop and widescreens. It's a [React App](https://reactjs.org/) with [Redux](https://redux.js.org/) and [Redux-Saga](https://github.com/redux-saga/redux-saga). And with some utility helpers from [GoogleMaps](https://cloud.google.com/maps-platform/), [Lodash](https://lodash.com/), [Axios](https://github.com/axios/axios) and [Jest](https://jestjs.io/) for testing the components.
 
 ## Features
-User based (Default users John Doe, and Jane Smith)
-Automatic and filtered(filters can be title, address/location, lat or lng) search for locations saved
-Auto-suggest for new address / updating address
-Auto highlight of markers on location selection
-Mega Map view/playground
+* User based (Default users John Doe, and Jane Smith)
+* Automatic and filtered(filters can be title, address/location, lat or lng) search for locations saved
+* Auto-suggest for new address / updating address
+* Auto highlight of markers on location selection
+* Mega Map view/playground
 
 ## How to Run
 In the project directory, run
