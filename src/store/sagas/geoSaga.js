@@ -1,6 +1,7 @@
 import {ADDRESS_SEARCH} from '../actions/geo/geoActionTypes';
 import * as geoActionCreators from '../actions/geo/geoActionCreators';
 import * as appActionCreators from '../actions/app/appActionCreators';
+import {THIRD_PARTY_DOWN} from '../actions/app/appActionTypes';
 
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
@@ -24,11 +25,15 @@ function* getAddressSearchAsync(action){
     try{
         const addresses = yield axios.get(url, {params :{token,address}});
 
-        (addresses.data.success)?
+        if(addresses.data.success){
         yield put(geoActionCreators.fetchAddressSearchFulfilled(addresses.data.results.address,
                                                                 addresses.data.results.lat,
-                                                                addresses.data.results.lng)):
-        yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
+                                                                addresses.data.results.lng))
+        }else if(!addresses.data.success && addresses.data.code === THIRD_PARTY_DOWN){
+            yield put(appActionCreators.networkError('sorry, third party geolocation is down'));
+        }else{
+            yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
+        }
     }catch(error){
         yield put(appActionCreators.networkError('sorry, could not retrieve location due to network'));
     }
