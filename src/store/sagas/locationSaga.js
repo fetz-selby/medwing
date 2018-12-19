@@ -1,6 +1,7 @@
 import {FETCH_LOCATIONS, SEARCH_LOCATION, PUSH_LOCATION_UPDATE, DELETE_LOCATION} from '../actions/locations/locationActionTypes';
 import * as locationActionCreator from '../actions/locations/locationActionCreators';
 import * as appActionCreators from '../actions/app/appActionCreators';
+import {THIRD_PARTY_DOWN, THIRD_PARTY_OK} from '../actions/app/appActionTypes';
 import {initPage} from '../actions/app/appActionCreators';
 import {takeLatest, put, call} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
@@ -42,6 +43,10 @@ function* updateLocationsAsync(action){
         if(update.data.success){
             yield put(initPage());
             yield call(getAllLocationsAsync);
+        } else if(!update.data.success && update.data.code === THIRD_PARTY_OK){
+            yield put(appActionCreators.invalidAddress('sorry, address can not be found'));
+        }else if(!update.data.success && update.data.code === THIRD_PARTY_DOWN){
+            yield put(appActionCreators.invalidAddress('sorry, third party geolocation is down'));
         }else{
             locationActionCreator.updateLocationFailed();
         }

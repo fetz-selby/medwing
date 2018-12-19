@@ -6,6 +6,7 @@ import RightSideBar from './components/sidebar/right';
 import LocationContainer from './containers/location/LocationContainer';
 import Overlay from './components/overlay';
 import Login from './components/login';
+import LocationInfo from './components/location-info';
 import * as appRoute from './store/actions/app/appRoute';
 import * as appAction from './store/actions/app/appActionCreators';
 import * as geoAction from './store/actions/geo/geoActionCreators';
@@ -119,10 +120,19 @@ class App extends Component {
   onErrorCancel=()=>
     this.props.hideNetworkError()
 
+  onInvalidAddressClose=()=>
+    this.props.hideInvalidAddress();
+
   showNetworkErrorOverlay = (message) =>
     <Overlay>
       <ErrorInfo message={message}
                  onCancel={this.onErrorCancel}></ErrorInfo>
+    </Overlay>
+
+  showInvalidAddressEntered = (message) =>
+    <Overlay>
+      <LocationInfo message={message}
+                    onClose={this.onInvalidAddressClose}></LocationInfo>
     </Overlay>
   
   onDeleteContinueClickedHandler = (id) =>{
@@ -148,12 +158,16 @@ class App extends Component {
             dialog_location_id,
             delete_dialog_message,
             networkError,
-            networkErrorMessage} = this.props;
-    // Show app page if token is acquired
+            networkErrorMessage,
+            invalidAddress,
+            invalidAddressMessage} = this.props;
+
     return  <div>
               {showDeleteConfirmation ? this.showConfirmOverlay(delete_dialog_message, dialog_location_id):''}
               {token.length ? '' : this.showLoginOverlay(users)}
               {networkError ? this.showNetworkErrorOverlay(networkErrorMessage) : ''}
+              {invalidAddress ? this.showInvalidAddressEntered(invalidAddressMessage) : ''}
+
               <LeftSideBar locations={locations} 
                        showSideBar={leftSideBarToggle} 
                        onSearchChange={this.onSearchChangeHandler}
@@ -203,7 +217,9 @@ const mapStateToProps = state =>{
      dialog_location_title: state.app.dialog_location_title,
      delete_dialog_message: state.app.delete_dialog_message,
      networkError: state.app.networkError,
-     networkErrorMessage: state.app.networkErrorMessage
+     networkErrorMessage: state.app.networkErrorMessage,
+     invalidAddressMessage: state.app.invalidAddressMessage,
+     invalidAddress: state.app.invalidAddress
   }
 }
 
@@ -230,7 +246,8 @@ const mapDispatchToProps = dispatch =>{
     showDeleteConfirmationDialog: (id, title)=>dispatch(appAction.showDeleteConfirmation(id,title)),
     hideDeleteConfirmationDialog: ()=>dispatch(appAction.hideDeleteConfirmation()),
     deleteUserLocation:(id)=>dispatch(deleteLocation(id)),
-    hideNetworkError: ()=>dispatch(appAction.closeNetworkError())
+    hideNetworkError: ()=>dispatch(appAction.closeNetworkError()),
+    hideInvalidAddress: ()=>dispatch(appAction.invalidAddressClose())
   }
 }
 

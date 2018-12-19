@@ -87,3 +87,11 @@ export const fetchUserLocations = (user_id, token) =>(
 export const initPage = () =>(
     {type: actionTypes.APP_INIT_PAGE}
 )
+
+export const invalidAddress = (message) =>(
+    {type: actionTypes.APP_INVALID_ADDRESS, payload: message}
+)
+
+export const invalidAddressClose = () =>(
+    {type: actionTypes.APP_INVALID_ADDRESS_CLOSE}
+)

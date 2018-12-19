@@ -1,7 +1,7 @@
 import {ADDRESS_SEARCH} from '../actions/geo/geoActionTypes';
 import * as geoActionCreators from '../actions/geo/geoActionCreators';
 import * as appActionCreators from '../actions/app/appActionCreators';
-import {THIRD_PARTY_DOWN} from '../actions/app/appActionTypes';
+import {THIRD_PARTY_DOWN, THIRD_PARTY_OK} from '../actions/app/appActionTypes';
 
 import {takeLatest, put} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
@@ -31,8 +31,8 @@ function* getAddressSearchAsync(action){
                                                                 addresses.data.results.lng))
         }else if(!addresses.data.success && addresses.data.code === THIRD_PARTY_DOWN){
             yield put(appActionCreators.networkError('sorry, third party geolocation is down'));
-        }else{
-            yield put(geoActionCreators.fetchAddressSearchFulfilledWithNoMatch());
+        }else if(!addresses.data.success && addresses.data.code === THIRD_PARTY_OK){
+            yield put(appActionCreators.invalidAddress('sorry, address can not be found'));
         }
     }catch(error){
         yield put(appActionCreators.networkError('sorry, could not retrieve location due to network'));

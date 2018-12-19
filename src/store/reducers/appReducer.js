@@ -18,7 +18,9 @@ const initial = {
     delete_dialog_message:'',
     keys:'',
     networkError: false,
-    networkErrorMessage: ''
+    networkErrorMessage: '',
+    invalidAddress: false,
+    invalidAddressMessage: ''
 }
 
 const reducer = (state = initial, action) => {
@@ -110,6 +112,28 @@ const reducer = (state = initial, action) => {
             return {
                 ...state,
                 module
+            }
+        }
+
+        case actionTypes.APP_INVALID_ADDRESS:{
+            const invalidAddress = true;
+            const invalidAddressMessage = action.payload;
+
+            return {
+                ...state,
+                invalidAddress,
+                invalidAddressMessage
+            }
+        }
+
+        case actionTypes.APP_INVALID_ADDRESS_CLOSE:{
+            const invalidAddress = false;
+            const invalidAddressMessage = '';
+
+            return {
+                ...state,
+                invalidAddress,
+                invalidAddressMessage
             }
         }
 
