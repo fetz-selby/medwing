@@ -16,7 +16,9 @@ const initial = {
     dialog_location_id: 0,
     dialog_location_title: '',
     delete_dialog_message:'',
-    keys:''
+    keys:'',
+    networkError: false,
+    networkErrorMessage: ''
 }
 
 const reducer = (state = initial, action) => {
@@ -60,6 +62,45 @@ const reducer = (state = initial, action) => {
             return{
                 ...state,
                 logout
+            }
+        }
+
+        case actionTypes.APP_CLOSE_NETWORK_ERROR:{
+            const networkError = false;
+            const showDeleteConfirmation = false;
+            const networkErrorMessage = '';
+
+            return{
+                ...state,
+                networkError,
+                networkErrorMessage,
+                showDeleteConfirmation
+            }
+        }
+
+        case actionTypes.APP_NETWORK_ERROR:{
+            const networkError = true;
+            const showDeleteConfirmation = false;
+            const networkErrorMessage = action.payload;
+
+            return{
+                ...state,
+                networkError,
+                networkErrorMessage,
+                showDeleteConfirmation
+            }
+        }
+
+        case actionTypes.APP_FETCH_ALL_USERS_FAILED:{
+            const networkError = true;
+            const showDeleteConfirmation = false;
+            const networkErrorMessage = action.payload;
+
+            return{
+                ...state,
+                networkError,
+                networkErrorMessage,
+                showDeleteConfirmation
             }
         }
 
@@ -126,10 +167,12 @@ const reducer = (state = initial, action) => {
 
         case actionTypes.APP_FETCH_ALL_USERS_FULFILLED:{
             const users = action.payload;
+            const networkError = false;
 
             return {
                 ...state,
-                users
+                users,
+                networkError
             }
         }
 
@@ -138,13 +181,15 @@ const reducer = (state = initial, action) => {
             const user_id = cookies.load('user_id');
             const username = cookies.load('username');
             const keys = cookies.load('keys');
+            const networkError = false;
 
             return {
                 ...state,
                 token,
                 user_id,
                 username,
-                keys
+                keys,
+                networkError
             }
         }
 
@@ -169,6 +214,7 @@ const reducer = (state = initial, action) => {
             const token = action.payload.token;
             const username = action.payload.username;
             const keys = action.payload.keys;
+            const networkError = false;
 
             //Store in cookies
             cookies.save('token', token);
@@ -181,7 +227,8 @@ const reducer = (state = initial, action) => {
                 user_id,
                 token,
                 username,
-                keys
+                keys,
+                networkError
             }
         }
 
